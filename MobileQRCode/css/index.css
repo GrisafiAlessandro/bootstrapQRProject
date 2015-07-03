@@ -2,19 +2,33 @@
     background-color: yellow;
     position: relative;
     left: 0px;
-    max-width: 8%;
-    min-width: 5%;
+   	width: 1%;
 }
 
-#menuLat > img {
-    display: list-item;
-}
-
-#imgDoc > img{
-    max-width: 95%;
-    min-width: 92%;
+#img{
+    width: 99%;
 }
 
 #imgDoc, #menuLat {
+padding-left: 0px;
+    margin-left: 0px;
     display: table-cell;
     }
+    
+.container {
+	margin-left: 0px;
+    margin-right: 0px;
+    
+}
+
+#buttonInfo{
+	position: absolute;
+    bottom: 1%;
+    right: 5%;
+    height: 75px;
+    width: 75px;
+    border-radius: 75px;
+    border: 0px;
+    background-image: url("info.jpg");
+    
+}

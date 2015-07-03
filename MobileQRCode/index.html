@@ -9,33 +9,37 @@
   
   <title>Certification service</title>
   <!-- Fogli di stile -->
-  <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-  <link href="css/stili-custom.css" rel="stylesheet" media="screen">
+  <link href="http://lbtest.altervista.org/qrproject/css/bootstrap.css" rel="stylesheet" media="screen">
+  <link href="http://lbtest.altervista.org/qrproject/css/stili-custom.css" rel="stylesheet" media="screen">
   <link href="css/index.css" rel="stylesheet" media="screen">
   <!-- Modernizr -->
-  <script src="js/modernizr.custom.js"></script>
+  <script src="http://lbtest.altervista.org/qrproject/js/modernizr.custom.js"></script>
   <!-- respond.js per IE8 -->
   <!--[if lt IE 9]>
-  <script src="js/respond.min.js"></script>
+  <script src="http://lbtest.altervista.org/qrproject/js/respond.min.js"></script>
   <![endif]-->
  </head>
  <body>
  	<div class="container">
     	<div class="row">
-  			<div id="menuLat" name="menuLat" class="col-xs-4">
+  			<div id="menuLat" name="menuLat" class="col-sm-12">
     			<img src="arrow.png">
     			<img src="arrow.png">
     			<img src="arrow.png">
     			<img src="arrow.png">
   			</div>
-  			<div id="imgDoc" name="imgDoc" class="col-xs-4">
-    			<img src="attestatoProva.jpg">
-    			<input type="button" id="buttonInfo" name="buttonInfo">
+  			<div id="imgDoc" name="imgDoc" class="col-sm-12">
+            	<script type="text/javascript">
+                	heightS = screen.height - 150;
+                    document.write('<img src="attestatoProva.jpg" id="img" height = ' + heightS + '>');
+                </script>
+    			
+            	<input type="button" id="buttonInfo" name="buttonInfo">
   			</div>
       </div>
     </div>
  <!-- jQuery e plugin JavaScript  -->
  <script src="http://code.jquery.com/jquery.js"></script>
- <script src="js/bootstrap.min.js"></script>
+ <script src="http://lbtest.altervista.org/qrproject/js/bootstrap.min.js"></script>
  </body>
 </html>
