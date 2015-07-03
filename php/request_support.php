@@ -43,14 +43,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 
-// Funzioni
+/* Funzione di test richiesta da codice maligno per prevenire 
+ * codice javascript eseguibile
+ */
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-
-
-
 }
 

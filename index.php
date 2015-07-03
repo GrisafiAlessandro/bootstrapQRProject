@@ -93,31 +93,10 @@ function test_input($data) {
             </div>
             <div class="col-md-4">
                 <section id="sectionFotoCertificato" >
-                    <img alt=" " id="imgCertificato" title="<?php echo $_GLOBALS['certificato']->titolo; ?>" src="<?php echo $_GLOBALS['certificato']->imgLocation; ?>" />
+                    <img alt="<?php echo $_GLOBALS['certificato']->titolo; ?>" id="imgCertificato" src="<?php echo $_GLOBALS['certificato']->imgLocation; ?>">
                 </section>
             </div>
-<<<<<<< HEAD
-            
-            <div id="utente_luogoRilascio"><?php echo $_GLOBALS['certificato']->luogoRilascio; ?></div>
-            <div id="utente_dataRilascio"><?php echo $_GLOBALS['certificato']->dataRilascio; ?></div>
-            
-			<?php 
-			/*Stampa se è un certificato di un corso*/
-			if($_GLOBALS['certificato']->isCertificato) {
-				echo '<div id="utente_durataCorso">', $_GLOBALS['certificato']->durataCorso, '</div>
-				<div id="utente_identitaDocente">', $_GLOBALS['certificato']->identitaUtente, '</div>';
-            } ?>
-            <div id="utente_descrizione"><?php echo $_GLOBALS['certificato']->descrizione; ?></div>
-            
-            </section>
-        </div>
-        <div class="col-md-4">
-            <section id="sectionFotoCertificato" >
-                <img alt="<?php echo $_GLOBALS['certificato']->titolo; ?>" id="imgCertificato" src="<?php echo $_GLOBALS['certificato']->imgLocation; ?>">
-            </section>
-=======
->>>>>>> origin/master
-        </div>
+         </div>
     </div>
 </body>
 </html>
