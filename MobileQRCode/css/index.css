@@ -1,0 +1,20 @@
+#menuLat {
+    background-color: yellow;
+    position: relative;
+    left: 0px;
+    max-width: 8%;
+    min-width: 5%;
+}
+
+#menuLat > img {
+    display: list-item;
+}
+
+#imgDoc > img{
+    max-width: 95%;
+    min-width: 92%;
+}
+
+#imgDoc, #menuLat {
+    display: table-cell;
+    }

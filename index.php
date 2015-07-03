@@ -11,16 +11,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Certification Service</title>
+<link type="text/css" href="css/bootstrap.css">
 
 <script type="text/javascript">
 
 </script>
 
-
-
 </head>
 
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>s
 
 <header>
 <button id="btnAllCertiicate" title="Tutti i certificati" ></button>
@@ -41,33 +43,40 @@
 <label id="lblPerTitolo" for="title">Per titolo</label>
 </div>
 
+
 <button id="copyrightButton" title="Copyright" ></button>
 </header>
 
-<aside id="continerAside">
-</aside>
-
-<section id="sectionInfoCertificato">
-
-<div id="utente_titolo"></div>
-<div id="identitaUtente">
-	<div id="utente_nome"></div>
-    <div id="utente_cognome"></div>
+<div class="container-fluid">
+    <div class="row">
+    	<div class="col-md-4">        
+            <aside id="continerAside">
+            </aside>
+        </div>
+        
+        <div class="col-md-4">
+            <section id="sectionInfoCertificato">
+            
+            <div id="utente_titolo"></div>
+            <div id="identitaUtente">
+                <div id="utente_nome"></div>
+                <div id="utente_cognome"></div>
+            </div>
+            
+            <div id="utente_luogoRilascio"></div>
+            <div id="utente_dataRilascio"></div>
+            <div id="utente_durataCorso"></div>
+            <div id="utente_identitaDocente"></div>
+            <div id="utente_descrizione"></div>
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="sectionFotoCertificato" >
+                <img id="imgCertificato" title="<?php echo certificate.title; ?>" src="<?php echo $certificate.photoLocation; ?>"/>
+            </section>
+        </div>
+    </div>
 </div>
-
-<div id="utente_luogoRilascio"></div>
-<div id="utente_dataRilascio"></div>
-<div id="utente_durataCorso"></div>
-<div id="utente_identitaDocente"></div>
-<div id="utente_descrizione"></div>
-</section>
-
-<section id="sectionFotoCertificato" >
-	<img id="imgCertificato" title="<?php echo certificate.title; ?>" src="<?php echo $certificate.photoLocation; ?>"/>
-</section>
-
-<section>
-</section>
 
 </body>
 </html>
