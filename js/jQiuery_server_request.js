@@ -13,6 +13,7 @@ request.done(function(response){
 
 });
 
+// Se Fallisce la richiesta
 request.fail(function(response){
     console.log("Error Response from server! The response is :" + response);
 });
