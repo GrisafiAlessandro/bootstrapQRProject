@@ -100,7 +100,7 @@ function test_input($data) {
         </div>
         <div class="col-md-4">
             <section id="sectionFotoCertificato" >
-                <img alt=" " id="imgCertificato" title="<?php echo $_GLOBALS['certificato']->titolo; ?>" src="<?php echo $_GLOBALS['certificato']->imgLocation; ?>" />
+                <img alt="<?php echo $_GLOBALS['certificato']->titolo; ?>" id="imgCertificato" src="<?php echo $_GLOBALS['certificato']->imgLocation; ?>">
             </section>
         </div>
     </div>
