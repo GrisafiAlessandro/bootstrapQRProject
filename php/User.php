@@ -7,5 +7,7 @@
  */
 
 class User {
-
+    public $idUtente = null;
+    public $nome = null;
+    public $cognome = null;
 }

@@ -6,26 +6,26 @@
  * Time: 16:50
  */
 
-class Document
-{
+class Document {
+    public $idDocumento = null;
     public $titolo = null;
-    public $nome= null;
+    public $nome = null;
     public $cognome = null;
     public $luogoRilascio = null;
     public $dataRilascio = null;
 
     //Campi certificato corso
     public $isCertificato = false;
+    //Chiave id dell'insegnante
+
+    public $idCorso = null;
     public $durataCorso = null;
     public $descrizione = null;
-    //Chiave id l'insegnante
-    public $identitaDocente = null;
-
+    public $isAttestato = false;
+    public $idDocente = null;
+    public $risultatoAttestato = null;
+    // PATH all'immagine;
 
     //campi Attestato
-    public $isAttestato = false;
-    public $risultatoAttestato = null;
-
-    // PATH all'immagine
     public $imgLocation = null;
 }
