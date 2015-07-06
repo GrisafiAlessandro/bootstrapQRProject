@@ -1,4 +1,11 @@
 <?php
+
+$GLOBALS['$servername'] = "localhost";
+$GLOBALS['$username'] = "lbTest";
+$GLOBALS['$password'] = "alphabetagamma";
+$GLOBALS['dbname'] = "DB_Sistema";
+
+
 /**
  * Created by PhpStorm.
  * User: Bogdan
@@ -11,8 +18,6 @@
  * - richiesta dati utente (fare controllo che sia un docente o no?? )
  *
  *  requestType = document/allDocument/user
- *
- *
  *
  * Database Table Users :
  * nome text 40
@@ -39,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 			if(!empty($idCertificato)) {
 				$idCertificato = test_input($idCertificato);
 		
-				//Controllo se la stringa è lunga 30 caratteri
+				//* Controllo se la stringa è lunga 30 caratteri
 				if(!true)
 				{
 					$infoCertificato = ricercaDB_certificato($idCertificato);
@@ -71,10 +76,26 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 }
 
-/* Funzioni di ricerca nel database */
+/** Funzioni di ricerca nel database */
+
 function ricercaDB_certificato($idRicerca)
 {
-	$requestToSQL = "SELECT * FROM Uenti WHERE idCertificato=" + $idRicerca;
+    include "php/Certificate_class.php";
+    $rispostaCostruita = new Document();
+
+	$requestToSQL = "SELECT * FROM Users WHERE idCertificato=" . $idRicerca;
+
+    // Create connection
+    $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
+
+    // Check connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    echo "Connected successfully";
+
+    $conn->close();
 	return ;
 }
 
@@ -82,7 +103,20 @@ function ricercaDB_Utente($idUtente)
 {
 	
 }
-/* Funzione di test richiesta da codice maligno per prevenire 
+
+/** Funzioni di costruzioni delle risposte */
+
+function risposta_infoCertificato($infoCertificato)
+{
+
+}
+
+function risposta_elencoCertificati($elencoCertificati)
+{
+
+}
+
+/** Funzione di test richiesta da codice maligno per prevenire
  * codice javascript eseguibile
  */
 function test_input($data) {
