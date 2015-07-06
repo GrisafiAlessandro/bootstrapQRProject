@@ -1,18 +1,17 @@
-<?php 
+<?php
 /*analisi richiesta cerificato*/
 
 if($_SERVER['REQUEST_METHOD'] == "GET") {
-	
+
 	$idCertificato = $_GET['ID_Certificato'];
-	
+
 	if(!empty($idCertificato) && null != $idCertificato) {
         $idCertificato = test_input($idCertificato);
 
         //Controllo se la stringa è lunga 30 caratteri
-        include "php/Certificate_class.php";
+        include "php/Document.php";
         $_GLOBALS['certificato'] = new Document();
     }
-	
 }
 // Funzioni
 function test_input($data) {

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+	<head>
+  		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<title>Certification service</title>
+  
+  <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <link rel="stylesheet" href="css/index2.css">
+</head>
+<body>
+ 
+<div class="container">
+    	<div class="row" id="row" >
+  			<div id="menuLat" name="menuLat" class="box">
+            	<img src="arrow.png">
+    			<img src="arrow.png">
+    			<img src="arrow.png">
+    			<img src="arrow.png">
+  			</div>  
+            <div id="imgDoc" name="imgDoc" class="col-sm-12">
+            	<script type="text/javascript">
+                	heightS = screen.height - 80; //Uguale a 560
+                    widthS = screen.width - 55;
+                    document.write('<img src="attestatoProva.jpg" id="img" height = ' + heightS + ' width = ' + widthS + '>');
+                </script>
+    			
+    			<a href="#" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-b"  data-inline="false">Button 1</a>  			
+           </div>
+      </div>
+      
+</div>
+	<script>
+	$(function(){
+    	// Bind the swiperightHandler callback function to the swipe event on div.box
+  		$( "div.box" ).on( "swiperight", swiperightHandler );
+ 
+  // Callback function references the event target and adds the 'swiperight' class to it
+  function swiperightHandler( event ){
+    $( event.target ).addClass( "swiperight" );
+  }
+});
+</script>
+ 
+</body>
+</html>
