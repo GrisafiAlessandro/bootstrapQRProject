@@ -1,44 +1,68 @@
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" ><![endif]-->
-<!--[if gt IE 8]><!--<html class="no-js" ><!--<![endif]-->
-<html>
- <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  
-  <title>Certification service</title>
-  <!-- Fogli di stile -->
-  <link href="http://lbtest.altervista.org/qrproject/css/bootstrap.css" rel="stylesheet" media="screen">
-  <link href="http://lbtest.altervista.org/qrproject/css/stili-custom.css" rel="stylesheet" media="screen">
-  <link href="css/index.css" rel="stylesheet" media="all">
-  <script src="http://code.jquery.com/jquery.js"></script>
-  <!-- Modernizr -->
-  <script src="http://lbtest.altervista.org/qrproject/js/modernizr.custom.js"></script>
- </head>
- <body>
-    <div class="container">
-    	<div class="row">
-  			<div id="menuLat" name="menuLat" class="col-sm-12">
-            	<img src="arrow.png">
-    			<img src="arrow.png">
-    			<img src="arrow.png">
-    			<img src="arrow.png">
-  			</div>
-            <div id="imgDoc" name="imgDoc" class="col-sm-12">
-            	<script type="text/javascript">
-                	heightS = screen.height - 80; //Uguale a 560
-                    widthS = screen.width - 55;
-                    document.write('<img src="attestatoProva.jpg" id="img" height = ' + heightS + ' width = ' + widthS + '>');
-                </script>
-    			<input type="button" id="buttonInfo" name="buttonInfo">
-  			</div>
-            
-      </div>
-    </div>
- <!-- jQuery e plugin JavaScript -->
+<!doctype html>
+<html lang="en">
+	<head>
+  		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+         <meta name="theme-color" content="#2196f3">
+  		<title>Certification service</title>
+ 		
+        <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+ 		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  		<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        
+        <link href="http://lbtest.altervista.org/qrproject/css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="http://lbtest.altervista.org/qrproject/css/stili-custom.css" rel="stylesheet" media="screen">
+  		<link rel="stylesheet" href="css/index.css" media="all">
+	</head>
+	<body>
+ 		<div class="container" id="container">
+    		<div class="row" id="row">
+  				<div id="menuLat" name="menuLat" class="menuLat">
+                	<div id="arrowMenu" class="arrowMenu">
+            			<img src="arrowright.png">
+    					<img src="arrowright.png">
+    					<img src="arrowright.png">
+    					<img src="arrowright.png">
+                    </div>
+                    <div id="buttonMenu" class="buttonMenu">
+                        <button id="buttonInfoM" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-a"></button>
+               			<button id="buttonBars" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext ui-btn-a"></button>
+         				<button id="buttonSearch" class="ui-btn ui-corner-all ui-icon-search ui-btn-icon-notext ui-btn-a"></button>
+                    	<button id="buttonCopy" class="ui-btn ui-corner-all ui-icon-alert ui-btn-icon-notext ui-btn-a"></button>
+                    </div>
+                </div>  
+            	<div id="imgDoc" name="imgDoc" class="col-sm-12">
+            		<img src="attestatoProva.jpg" id="img">
+                	<a href="#" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-b" id="buttonInfo" class="buttonIfo"></a>  			
+           		</div>
+      		</div>
+      	</div>
+	 	<script>
+       			$(function(){
+    				$( "div#menuLat" ).swiperight( function ( ){
+               			$( "div#menuLat" ).addClass( "swiperight" );
+                     	$( "div#arrowMenu" ).addClass( "swiperightArrow" );
+                        $( "div#buttonMenu" ).addClass( "swiperightButton" );
+                        window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swipeleft");},2);
+                        window.setTimeout(function(){ $( "div#arrowMenu" ).removeClass("swipeleftArrow");},2);
+                        window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swipeleftButton");},2);
+                    })
+                    });
+                  
+             	//Swipe left menu
+            	$(function(){
+    				$( "div#menuLat" ).swipeleft( function ( ){
+                    	
+                        $( "div#menuLat" ).addClass( "swipeleft" );
+               			$( "div#arrowMenu" ).addClass( "swipeleftArrow" );
+                        $( "div#buttonMenu" ).addClass( "swipeleftButton" );
+                        window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swiperight");},2);
+                        window.setTimeout(function(){ $( "div#arrowMenu" ).removeClass("swiperightArrow");},2);
+                        window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swiperightButton");},2);
+                     
 
- <script src="http://lbtest.altervista.org/qrproject/js/bootstrap.min.js"></script>
-
- </body>
+                    })
+                    });
+        </script>
+ 	</body>
 </html>

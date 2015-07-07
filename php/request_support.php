@@ -1,9 +1,5 @@
 ﻿<?php
-
-$GLOBALS['$servername'] = "localhost";
-$GLOBALS['$username'] = "lbTest";
-$GLOBALS['$password'] = "alphabetagamma";
-$GLOBALS['dbname'] = "DB_Sistema";
+include "dbmysql.php";
 
 /**
  * Created by PhpStorm.
@@ -18,33 +14,22 @@ $GLOBALS['dbname'] = "DB_Sistema";
  *
  *  requestType = document/allDocuments/user
  *
- * Database Table Users :
- * idUtente text 30
- * nome text 40
- * cognome text 40
- *
- * Database Table Documenti
- * idDocumento
- * titolo text 255
- * luogoRilascio text 100
- * dataRilascio data
- * descrizione text 40000
- *
+ * Database Table Users, Documents, Courses
  *
  */
 
  /* CONTROLLO INPUT */
 if($_SERVER['REQUEST_METHOD'] == "POST") {
-	
+
 	$tipoRichiesta = $_POST['typeRequest'];
-	
+
 	if(!empty($tipoRichiesta))	{
 		$tipoRichiesta = safeInput($tipoRichiesta);
-		
+
 		/** Richiesta di ricerca */
 		if($tipoRichiesta === "search")	{
 			if(!empty($_POST['type']) && !empty($_POST['pattern'])){
-				
+
 			}
 		}
         /** Richiesta un documento specifico */
@@ -57,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 				//Controllo se id è lungo 10 caratteri ed è composto solo di lettere e numeri
 				if(30 == strlen($idDocumento) && preg_match("/^[a-zA-Z0-9]+$/",$idDocumento) )	{
-					getDocumento($idDocumento);
+					echo getDocumento($idDocumento);
 				}
 			}
 		}
@@ -71,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 				//Controllo se id è lungo 10 caratteri ed è composto solo di lettere e numeri
 				if( 10 == strlen($idUtente) && preg_match("/^[a-zA-Z0-9]+$/",$idUtente)) {
-					getElencoDocumenti($idUtente);
+					echo getElencoDocumenti($idUtente);
 				}
 			}
 		}
@@ -81,15 +66,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 			if(!empty($idUtente)) {
 				$idUtente = safeInput($idUtente);
-				
+
 				//Controllo se id è lungo 10 caratteri ed è composto solo di lettere e numeri
 				if(10 == strlen($idUtente) && preg_match("/^[a-zA-Z0-9]+$/",$idUtente)) {
-					getDocente($idUtente);
+					echo getDocente($idUtente);
 				}
 			}
 		}
 		else {
-			sayBadRequest();
+			echo saybadInput();
 		}
 	}
 }
@@ -104,38 +89,53 @@ function safeInput($data) {
     return $data;
 }
 
-/* ESECUZIONE RICHIESTE, FORMAZIONE RISPOSTE, INVIO DATI */
+/** ESECUZIONE RICHIESTE, FORMAZIONE RISPOSTE, INVIO DATI */
 function getDocumento($idDocumento) {
+    // ricerco documento
 	$documento = ricercaDB_Documento($idDocumento);
-	//Costruisco la risposta in HTML
-	$rispostaPronta = risposta_infoDocumento($documento);
-	// Invio la risposta
-	echo $rispostaPronta;
+
+    if(null != $documento ) {
+        $rispostaPronta = risposta_infoDocumento($documento); //Costruisco la risposta in HTML
+    }
+    else {
+        $rispostaPronta = sayNotFound();
+    }
+	return $rispostaPronta; // Invio la risposta
+}
+
+function getImage($idDocumento) {
+    $documento = ricercaDB_Documento($idDocumento); // Ricerco documento
+
+    if(null != $documento ) {
+        $rispostaPronta = risposta_immagine($documento); //Costruisco la risposta in HTML
+    }
+    else {
+        $rispostaPronta = sayNotFound();
+    }
+    return $rispostaPronta = "ciao"; // Invio la risposta
 }
 
 function getElencoDocumenti($idUtente) {
-	// Ricerco utente
-	$utente = ricercaDB_Utente($idUtente);
-	$vettDocumenti = ricercaDB_elencoDocumenti($idUtente);
-	//Costruisco la risposta in HTML
-	$rispostaPronta = risposta_elencoDocumenti($vettDocumenti);
-	// Invio la risposta
-	echo $rispostaPronta;
+	$vettDocumenti = ricercaDB_elencoDocumenti($idUtente); // Ricerco i documenti nel DB
+	$rispostaPronta = risposta_elencoDocumenti($vettDocumenti); // Costruisco la risposta in HTML
+    return $rispostaPronta; // Invio la risposta
 }
 
 function getDocente($idUtente) {
-	// Ricerco info cliente
-	$utente = ricercaDB_Utente($idUtente);
-	$vettDocumenti = ricercaDB_elencoDocumenti($idUtente);
-	// Costruisco la risposta
-	$rispostaPronta = risposta_Docente($utente,$vettDocumenti);
-	// Invio la risposta
-	echo $rispostaPronta;	
+	$utente = ricercaDB_Utente($idUtente); // Ricerco info cliente
+	$vettDocumenti = ricercaDB_elencoDocumenti($idUtente); // Ricerco i documenti nel DB
+	$rispostaPronta = risposta_Docente($utente,$vettDocumenti); // Costruisco la risposta
+    return $rispostaPronta; // Invio la risposta
 }
 
-function sayBadRequest() {
+function sayNotFound() {
+    $rispostaPronta = risposta_notFound();
+    return $rispostaPronta; // Invio la risposta
+}
+
+function saybadInput() {
 	$rispostaPronta = risposta_badInput();
-    echo $rispostaPronta;
+    return $rispostaPronta; // Invio la risposta
 }
 
 /** Funzioni di ricerca nel database */
@@ -143,7 +143,7 @@ function ricercaDB_documento($idDocumento) {
     include_once "Document.php";
     $rispostaCostruita = new Document();
 
-	$requestToSQL = "SELECT * FROM Documents WHERE idDocumento=" . $idDocumento;
+	$requestToSQL = "SELECT TOP 1 FROM Documents WHERE idDocumento=" . $idDocumento;
 
     // Create connection
     $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
@@ -151,16 +151,69 @@ function ricercaDB_documento($idDocumento) {
     if ($conn->connect_error) {
         die("<script>console.log('Connection Failed : ". $conn->connect_error . "');</script>");
     }
-    echo "<script>console.log('Connected successfully');</script>";
-
+    else {
+        echo "<script>console.log('Connected successfully');</script>";
+        $result = $conn->query($requestToSQL);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $rispostaCostruita->idDocumento = $row['idDocumento'];
+                $rispostaCostruita->idUtente = $row['idUtente'];
+                $rispostaCostruita->titolo = $row['titolo'];
+                $rispostaCostruita->luogoRilascio = $row['luogoRilascio'];
+                $rispostaCostruita->dataRilascio = $row['dataRilascio'];
+                $rispostaCostruita->imgLocation = $row['imgLocation'];
+                $rispostaCostruita->isCertificato = $row['isCertificato'];
+                $rispostaCostruita->isAttestato = $row['isAttestato'];
+                $rispostaCostruita->idCorso = $row['idCorso'];
+                $rispostaCostruita->risultatoAttestato = $row['risultatoAttestato'];
+                $rispostaCostruita->descrizione = $row['descrizione'];
+            }
+        }
+    }
     $conn->close();
 	return $rispostaCostruita;
+}
+
+/** Funzioni di ricerca nel database */
+function ricercaDB_elencoDocumenti($idUtente) {
+    include_once "Document.php";
+    $rispostaCostruita = new Document();
+
+    $requestToSQL = "SELECT * FROM Documents WHERE idUtente=" . $idUtente;
+
+    // Create connection
+    $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
+    // Check connection
+    if ($conn->connect_error) {
+        die("<script>console.log('Connection Failed : ". $conn->connect_error . "');</script>");
+    }
+    else {
+        echo "<script>console.log('Connected successfully');</script>";
+        $result = $conn->query($requestToSQL);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $rispostaCostruita->idDocumento = $row['idDocumento'];
+                $rispostaCostruita->idUtente = $row['idUtente'];
+                $rispostaCostruita->titolo = $row['titolo'];
+                $rispostaCostruita->luogoRilascio = $row['luogoRilascio'];
+                $rispostaCostruita->dataRilascio = $row['dataRilascio'];
+                $rispostaCostruita->imgLocation = $row['imgLocation'];
+                $rispostaCostruita->isCertificato = $row['isCertificato'];
+                $rispostaCostruita->isAttestato = $row['isAttestato'];
+                $rispostaCostruita->idCorso = $row['idCorso'];
+                $rispostaCostruita->risultatoAttestato = $row['risultatoAttestato'];
+                $rispostaCostruita->descrizione = $row['descrizione'];
+            }
+        }
+    }
+    $conn->close();
+    return $rispostaCostruita;
 }
 
 // Ricerca l'utente
 function ricercaDB_utente($idUtente) {
 	include_once "User.php";
-	
+
     $rispostaCostruita = new User();
 	$requestToSQL = "SELECT * FROM Users WHERE idUtente=" . $idUtente;
 
@@ -170,90 +223,117 @@ function ricercaDB_utente($idUtente) {
     if ($conn->connect_error) {
         die("<script>console.log('Connection Failed : ". $conn->connect_error . "');</script>");
     }
-    echo "<script>console.log('Connected successfully');</script>";
-
+    else {
+        echo "<script>console.log('Connected successfully');</script>";
+        $result = $conn->query($requestToSQL);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $rispostaCostruita->idUtente = $row['idUtente'];
+                $rispostaCostruita->nome = $row['nome'];
+                $rispostaCostruita->cognome = $row['cognome'];
+            }
+        }
+    }
     $conn->close();
-	return $rispostaCostruita;
+    return $rispostaCostruita;
 }
 
-function ricercaDB_corso($idCorso) {
-	include_once "Corso.php";
-	
-	$rispostaCostruita = new Corso();
-	$requestToSQL = "SELECT * FROM Courses WHERE idCorso=" . $idCertificato;
+function ricercaDB_corso($idCorso)
+{
+    include_once "Corso.php";
+
+    $rispostaCostruita = new Corso();
+    $requestToSQL = "SELECT * FROM Courses WHERE idCorso=" . $idCorso;
 
     // Create connection
     $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
     // Check connection
     if ($conn->connect_error) {
-        die("<script>console.log('Connection Failed : ". $conn->connect_error . "');</script>");
+        die("<script>console.log('Connection Failed : " . $conn->connect_error . "');</script>");
+    } else {
+        echo "<script>console.log('Connected successfully');</script>";
+        $result = $conn->query($requestToSQL);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $rispostaCostruita->idCorso = $row['idCorso'];
+                $rispostaCostruita->idDocente = $row['idDocente'];
+                $rispostaCostruita->durataCorso = $row['durataCorso'];
+                $rispostaCostruita->programma = $row['programma'];
+                $rispostaCostruita->infoUlteriori = $row['infoUlteriori'];
+            }
+        }
     }
-    echo "<script>console.log('Connected successfully');</script>";
-
     $conn->close();
-	return $rispostaCostruita;
+    return $rispostaCostruita;
 }
 
 /** COSTRUTTORI DI RISPOSTA */
 function risposta_corso($corso) {
 	$docente = ricercaDB_Utente($corso->idDocente);
-	
-	$risposta = '<li><ul class="identita"><li class="nome">' 
+
+	$risposta = '<li><ul id="utente_identitaDocente" class="identita"><li class="nome">'
 		. $docente->nome . '</li><li class="nome">'
 		. $docente->cognome . '</li></ul><li>'
 		. $corso->durataCorso . '</li><li>'
-		. $corso->programma . '</li><li>' 
+		. $corso->programma . '</li><li>'
 		. $corso->infoUlteriori . '</li>'
 		;
 	return $risposta;
 }
 
 function risposta_infoDocumento($documento) {
-	$risposta =  "<div><ul style='list-style-type:none'><li>" 
-		. $documento->titolo . '</li><li><ul class="identita" style="display:inline;"><li class="nome">' 
-		. $documento->nome . '</li><li class="nome">' 
-		. $documento->cognome . '</li></ul></li><li>' 
+	$risposta =  "<div><ul style='list-style-type:none'><li>"
+		. $documento->titolo . '</li><li><ul class="identita" style="display:inline;"><li class="nome">'
+		. $documento->nome . '</li><li class="nome">'
+		. $documento->cognome . '</li></ul></li><li>'
 		. $documento->luogoRilascio . '</li><li>'
 		. $documento->dataRilascio->dataStamp() . '</li>'
 		;
-		
+
 		if($documento->isCertificato) {
 			$oggettoCorso = richiestaDB_Corso($documento->idCorso);
-			$risposta += risposta_corso($oggettoCorso);			
+			$risposta .= risposta_corso($oggettoCorso);
 		}
 		else if($documento->isAttestato) {
-			$risposta += "<li>" . $documento->risultatoAttestato . "</li>";
-			
+			$risposta .= "<li>" . $documento->risultatoAttestato . "</li>";
+
 			if( null != $documento->descrizione ) {
-				$risposta += "<li>" . $documento->descrizione . "</li>"	;
+				$risposta .= "<li>" . $documento->descrizione . "</li>"	;
 			}
 		}
-		$risposta += "</ul></div>";	
+		$risposta .= "</ul></div>";
 	return $risposta;
 }
 
 function risposta_elencoDocumenti($vettDocumenti) {
 	$risposta = '<div id="documenti"><ul name="'
-		. $documento->idUtente .'">'
+		. $vettDocumenti[0]->idUtente .'">'
 		;
-	
-	foreach($vettDocumenti as $documento)
-	{
-		$risposta += '<li name="' 
-			. $documento->idDocumento . '">' 
+
+	foreach($vettDocumenti as $documento) {
+		$risposta .= '<li name="'
+			. $documento->idDocumento . '">'
 			. $documento->titolo . '</li>'
 			;
-	}	
-	$risposta += "</ul></div>";	
-	
+	}
+	$risposta .= "</ul></div>";
+
 	return $risposta;
 }
 
+/** DOCENTE*/
 function risposta_Docente($utente,$vettDocumenti) {
 	$risposta = '<div><ul class="identita"><li class="nome">'
 		. $utente->nome .'</li><li class="nome">'
 		. $utente->cognome . '</li></ul></div>'
 		. risposta_elencoDocumenti($vettDocumenti);
-		
+
 	return $risposta;
+}
+
+function risposta_immagine($documento) {
+    $risposta = '<img alt="'
+        . $documento->titolo . '" id="imgDocumento" src="'
+        . $documento->imgLocation . '">';
+    return $risposta;
 }

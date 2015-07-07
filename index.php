@@ -1,25 +1,29 @@
 <?php
-/*analisi richiesta cerificato*/
 
+function Safe_Input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+/*analisi richiesta cerificato*/
 if($_SERVER['REQUEST_METHOD'] == "GET") {
 
-	$idCertificato = $_GET['ID_Certificato'];
+	$idDocumento = $_GET['d'];
 
-	if(!empty($idCertificato) && null != $idCertificato) {
-        $idCertificato = test_input($idCertificato);
+	if(!empty($idDocumento)) {
+        $idDocumento = Safe_Input($idDocumento);
 
-        //Controllo se la stringa è lunga 30 caratteri
-        include "php/Document.php";
-        $_GLOBALS['certificato'] = new Document();
+        if(30 == strlen($idDocumento) && preg_match("/^[a-zA-Z0-9]+$/",$idDocumento) )	{
+            include_once "php/request_support.php";
+            $GLOBALS['risposta'] = '$getDocumento($idDocumento)non riceve un cazzo';
+        }
+        else {
+            echo 'proprio non voglio';
+        }
     }
 }
-// Funzioni
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
- }
 ?>
 
 <!DOCTYPE html>
@@ -72,30 +76,12 @@ function test_input($data) {
 
             <div class="col-md-4">
                 <ul id="sectionInfoCertificato">
-                    <li id="utente_titolo"><?php echo $_GLOBALS['certificato']->titolo; ?></li>
-                    
-                     <li>
-                        <ul id="identitaUtente">
-                            <li id="utente_nome"><?php echo $_GLOBALS['certificato']->nome; ?></li>
-                            <li id="utente_cognome"><?php echo $_GLOBALS['certificato']->cognome; ?></li>
-                        </ul>
-                     </li>
-
-                    <li id="utente_luogoRilascio"><?php echo $_GLOBALS['certificato']->luogoRilascio; ?></li>
-                    <li id="utente_dataRilascio"><?php echo $_GLOBALS['certificato']->dataRilascio; ?></li>
-
-                    <?php
-                    /*Stampa se è un certificato di un corso*/
-                    if($_GLOBALS['certificato']->isCertificato) {
-                        echo '<li id="utente_durataCorso">', $_GLOBALS['certificato']->durataCorso, '</div>
-                        <li id="utente_identitaDocente">', $_GLOBALS['certificato']->identitaUtente, '</div>';
-                    } ?>
-                    <li id="utente_descrizione"><?php echo $_GLOBALS['certificato']->descrizione; ?></div>
+                    <?php echo $GLOBALS['risposta']; ?>
                 </ul>
             </div>
             <div class="col-md-4">
                 <section id="sectionFotoCertificato" >
-                    <img alt="<?php echo $_GLOBALS['certificato']->titolo; ?>" id="imgCertificato" src="<?php echo $_GLOBALS['certificato']->imgLocation; ?>">
+                    <?php echo '$getImage($idDocumento)'; ?>
                 </section>
             </div>
          </div>

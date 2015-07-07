@@ -1,0 +1,9 @@
+{
+    "ShowDbStructureCreation": true,
+    "ShowDbStructureLastUpdate": true,
+    "HideStructureActions": false,
+    "Server\/hide_db": "",
+    "Server\/only_db": "",
+    "lang": "it",
+    "collation_connection": "utf8mb4_bin"
+}
