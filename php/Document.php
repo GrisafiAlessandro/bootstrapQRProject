@@ -8,24 +8,21 @@
 
 class Document {
     public $idDocumento = null;
+	public $idUtente = null;
     public $titolo = null;
-    public $nome = null;
-    public $cognome = null;
     public $luogoRilascio = null;
     public $dataRilascio = null;
-
-    //Campi certificato corso
+	
+    public $imgLocation = null;	// PATH all'immagine;
+    
+	// Campi per il controllo
     public $isCertificato = false;
-    //Chiave id dell'insegnante
-
-    public $idCorso = null;
-    public $durataCorso = null;
-    public $descrizione = null;
-    public $isAttestato = false;
-    public $idDocente = null;
+	public $isAttestato = false;
+	
+	//Campi certificato corso    
+    public $idCorso = null;		//Indice id del corso    
+    
+	//campi Attestato
     public $risultatoAttestato = null;
-    // PATH all'immagine;
-
-    //campi Attestato
-    public $imgLocation = null;
+	public $descrizione = null;    
 }

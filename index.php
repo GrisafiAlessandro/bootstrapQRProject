@@ -71,24 +71,27 @@ function test_input($data) {
             </div>
 
             <div class="col-md-4">
-                <section id="sectionInfoCertificato">
-                    <div id="utente_titolo"><?php echo $_GLOBALS['certificato']->titolo; ?></div>
-                    <div id="identitaUtente">
-                        <div id="utente_nome"><?php echo $_GLOBALS['certificato']->nome; ?></div>
-                        <div id="utente_cognome"><?php echo $_GLOBALS['certificato']->cognome; ?></div>
-                    </div>
+                <ul id="sectionInfoCertificato">
+                    <li id="utente_titolo"><?php echo $_GLOBALS['certificato']->titolo; ?></li>
+                    
+                     <li>
+                        <ul id="identitaUtente">
+                            <li id="utente_nome"><?php echo $_GLOBALS['certificato']->nome; ?></li>
+                            <li id="utente_cognome"><?php echo $_GLOBALS['certificato']->cognome; ?></li>
+                        </ul>
+                     </li>
 
-                    <div id="utente_luogoRilascio"><?php echo $_GLOBALS['certificato']->luogoRilascio; ?></div>
-                    <div id="utente_dataRilascio"><?php echo $_GLOBALS['certificato']->dataRilascio; ?></div>
+                    <li id="utente_luogoRilascio"><?php echo $_GLOBALS['certificato']->luogoRilascio; ?></li>
+                    <li id="utente_dataRilascio"><?php echo $_GLOBALS['certificato']->dataRilascio; ?></li>
 
                     <?php
                     /*Stampa se è un certificato di un corso*/
                     if($_GLOBALS['certificato']->isCertificato) {
-                        echo '<div id="utente_durataCorso">', $_GLOBALS['certificato']->durataCorso, '</div>
-                        <div id="utente_identitaDocente">', $_GLOBALS['certificato']->identitaUtente, '</div>';
+                        echo '<li id="utente_durataCorso">', $_GLOBALS['certificato']->durataCorso, '</div>
+                        <li id="utente_identitaDocente">', $_GLOBALS['certificato']->identitaUtente, '</div>';
                     } ?>
-                    <div id="utente_descrizione"><?php echo $_GLOBALS['certificato']->descrizione; ?></div>
-                </section>
+                    <li id="utente_descrizione"><?php echo $_GLOBALS['certificato']->descrizione; ?></div>
+                </ul>
             </div>
             <div class="col-md-4">
                 <section id="sectionFotoCertificato" >
