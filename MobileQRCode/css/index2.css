@@ -1,0 +1,17 @@
+div.box {
+   	  background-color: #108040;
+      height : 100vh;
+      width: 10%;
+  	}
+   
+   div.box.swiperight {
+    background-color: #FF0000;
+  }
+  
+  #imgDoc, #menuLat {
+	padding-left: 0px;
+    margin-left: 0px;
+    padding-right: 0px;
+    margin-right: 0px;
+    display: table-cell;
+}

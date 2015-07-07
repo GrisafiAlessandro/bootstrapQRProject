@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 $GLOBALS['$servername'] = "localhost";
 $GLOBALS['$username'] = "lbTest";
@@ -28,49 +28,70 @@ $GLOBALS['dbname'] = "DB_Sistema";
  *
  *
  */
- 
+
  /* CONTROLLO INPUT */
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$tipoRichiesta = $_POST['typeRequest'];
-	if(!empty($tipoRichiesta))
-	{
+	if(!empty($tipoRichiesta))	{
 		$tipoRichiesta = test_input($tipoRichiesta);
-		
-		if($tipoRichiesta === "document")
-		{
+
+        /** Richiesta un documento specifico */
+		if($tipoRichiesta === "document") {
 			$idCertificato = $_POST['ID_Certificato'];
-		
-			if(!empty($idCertificato)) 
-			{
+
+			if(!empty($idCertificato))	{
+
 				$idCertificato = test_input($idCertificato);
-		
+
 				//* Controllo se la stringa è lunga 30 caratteri
-				if(30 == strlen($idCertificato) && preg_match("/^[a-zA-Z0-9]+$/",$idCertificato) )
-				{
+
+				if(30 == strlen($idCertificato) && preg_match("/^[a-zA-Z0-9]+$/",$idCertificato) )	{
+
 					$infoCertificato = ricercaDB_certificato($idCertificato);
-					//Costruisco la risposta in HTML 
+					//Costruisco la risposta in HTML
 					$rispostaPronta = risposta_infoCertificato($infoCertificato);
 					// Invio la risposta
-					echo $rispostaPronta;					
+					echo $rispostaPronta;
 				}
 			}
 		}
-		else if($tipoRichiesta === "allDocuments")
-		{
+
+        /**  Richiesta di tutti i documenti di un utente */
+		else if($tipoRichiesta === "allDocuments") {
+
 			$idUtente = $_POST['ID_User'];
-		
+
 			if(!empty($idUtente)) {
 				$idUtente = test_input($idUtente);
-		
+
 				//Controllo se id è lungo 10 caratteri
-				if( 10 == strlen($idUtente) && preg_match("/^[a-zA-Z0-9]+$/",$idUtente))
-				{
-					// Ricerco utente 
+
+				if( 10 == strlen($idUtente) && preg_match("/^[a-zA-Z0-9]+$/",$idUtente)) {
+					// Ricerco utente
 					$infoUtente = ricercaDB_Utente($idUtente);
-					//Costruisco la risposta in HTML 
+					//Costruisco la risposta in HTML
 					$rispostaPronta = risposta_elencoCertificati($infoUtente);
 					// Invio la risposta
-					echo $rispostaPronta;					
+					echo $rispostaPronta;
+				}
+			}
+		}
+        /** Richiesta info docente */
+		else if($tipoRichiesta === "user") {
+			$idUtente = $GLOBALS['ID_User'];
+
+			if(!empty($idUtente)) {
+				$idUtente = test_input($idUtente);
+
+				if(10 == strlen($idUtente) && preg_match("/^[a-zA-Z0-9]+$/",$idUtente)) {
+					// Ricerco info cliente
+					$infoUtente = ricercaDB_Utente($idUtente);
+
+					// Costruisco la risposta
+					$rispostaPronta = risposta_CertificatiInsegnante($infoUtente);
+
+					// Invio la risposta
+					echo $rispostaPronta;
 				}
 			}
 		}
@@ -100,9 +121,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 /** Funzioni di ricerca nel database */
 
-function ricercaDB_certificato($idCertificato)
-{
-    include "php/Certificate_class.php";
+
+function ricercaDB_certificato($idCertificato) {
+    include "php/Document.php";
     $rispostaCostruita = new Document();
 
 	$requestToSQL = "SELECT * FROM Users WHERE idCertificato=" . $idCertificato;
@@ -111,8 +132,7 @@ function ricercaDB_certificato($idCertificato)
     $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
 
     // Check connection
-    if ($conn->connect_error)
-    {
+    if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
     echo "Connected successfully";
@@ -121,20 +141,18 @@ function ricercaDB_certificato($idCertificato)
 	return ;
 }
 
-function ricercaDB_Utente($idUtente)
-{
-	
+// Ricerca l'utente
+function ricercaDB_Utente($idUtente) {
+
 }
 
 /** Funzioni di costruzioni delle risposte */
 
-function risposta_infoCertificato($infoCertificato)
-{
+function risposta_infoCertificato($infoCertificato) {
 
 }
 
-function risposta_elencoCertificati($elencoCertificati)
-{
+function risposta_elencoCertificati($elencoCertificati) {
 
 }
 
