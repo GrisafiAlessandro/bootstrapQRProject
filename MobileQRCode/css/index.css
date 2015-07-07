@@ -1,5 +1,5 @@
 #menuLat {
-    background-color: yellow;
+    background-color: #039be5;
     position: relative;
     left: 0px;
     width: 1px;
@@ -24,12 +24,14 @@
    }
 
 #buttonInfo{
-	position: absolute;
-    bottom: 2%;
-    right: 5%;
-    height: 48px;
-    width: 48px;
-    border-radius: 48px;
-    border: 0px;
-    background-image: url("info.png");
+	position: absolute !important;
+    bottom: 4% !important;
+    right: 5% !important;
+    height: 48px !important;
+    width: 48px !important;
+    border-radius: 48px !important;
+    border: 0px !important;
+    background-image: url("info.png") !important;
+    background-color: #039be5 !important;
+    outline: none !important;
 }

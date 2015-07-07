@@ -8,6 +8,12 @@ Desktop.ini
 # Folder to ignore
 .idea/
 _notes/
+js/_notes/
+php/_notes/
+css/_notes/
+MobileQRCode/_notes/
+MobileQRCode/css/_notes/
+MobileQRCode/jQuery/_notes/
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -17,6 +23,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.xml
 
 # Windows shortcuts
 *.lnk
