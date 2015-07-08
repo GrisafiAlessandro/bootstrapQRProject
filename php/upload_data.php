@@ -7,8 +7,9 @@
  */
 
 include "dbmysql.php";
-include "User.php";
-include "Document.php";
+include "class/User.php";
+include "class/Document.php";
+include "class/Corso.php";
 
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -21,7 +22,7 @@ function generateRandomString($length = 10) {
 }
 
 /**  INIZIO DEBUG */
-function create_utente() {
+function crea_utente() {
     $user = new User();
     $user->idUtente = generateRandomString(30);
     $user->nome = generateRandomString(6);
@@ -30,27 +31,44 @@ function create_utente() {
 }
 
 function crea_documento() {
+    $utente = crea_utente();
+    $corso = crea_corso();
+    insert_utente($utente);
+
     $documento = new Document();
     $documento->idDocumento = generateRandomString(30);
-    $documento->idUtente = generateRandomString(20);
+    $documento->idUtente = $utente->idUtente;
     $documento->titolo = htmlspecialchars("Questo è il titolo");
     $documento->luogoRilascio = "Pordenone";
-    $documento->dataRilascio = "Oggi/domani7sempre";
-    $documento->imgLocation = "lbtest.altervista.org/immagine.png";
-    $documento->isCertificato = false;
-    $documento->isAttestato = true;
-    $documento->idCorso = null;
-    $documento->risultatoAttestato = "I'M THE WINNER";
-    $documento->descrizione = htmlspecialchars("Questa è decrizione");
+    $documento->dataRilascio = date("Y-m-d H:i:s");
+    $documento->imgLocation = "http://lbtest.altervista.org/immagine.png";
+    $documento->isCertificato = false; // true; //
+    $documento->isAttestato = true; // false; //
+    $documento->idCorso = null; // $corso->idCorso; //
+    $documento->risultatoAttestato = "I'M THE WINNER";   // null; //
+    $documento->descrizione = htmlspecialchars("Questa è descrizione"); // null; //
     return $documento;
 }
 
+function crea_corso() {
+    $utente = crea_utente();
+
+    $corso = new Corso();
+    $corso->idDocente = $utente->idUtente;
+    $corso->idCorso = generateRandomString(30);
+    $corso->durataCorso = "settimane..";
+    $corso->programma = "...ecc ecc ecc";
+    $corso->ulterioriInfo = "non ci sono";
+    return $corso;
+}
+
 /** INSERIMENTO FITTIZIO MODALITA DEBUG */
-insert_Documento(crea_documento());
-// insert_utente(create_utente());
+ insert_Documento(crea_documento());
+// insert_utente(crea_utente());
+// insert_corso(crea_corso());
 
 /** FINE DEBUG */
-//Inserisci utente
+/** INSERIMENTO UTENTE */
 function insert_utente($utente) {
     $requestToSQL = 'INSERT INTO Users (idUtente, nome, cognome) VALUES ("'
         . $utente->idUtente . '","'
@@ -76,6 +94,7 @@ function insert_utente($utente) {
     return ;
 }
 
+/** INSERIMENTO DOCUMENTO */
 function insert_Documento($documento){
     $requestToSQL = 'INSERT INTO Documents (idDocumento,idUtente,titolo,luogoRilascio,dataRilascio,
                     imgLocation,isCertificato,isAttestato,idCorso,risultatoAttestato,descrizione) VALUES ("'
@@ -91,6 +110,34 @@ function insert_Documento($documento){
         . $documento->risultatoAttestato . '","'
         . $documento->descrizione . '")'
         ;
+    // Create connection
+    $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
+    // Check connection
+    if ($conn->connect_error) {
+        die('<script>console.log("Connection Failed : ' . $conn->connect_error . '");</script>');
+    }
+    else {
+        echo '<script>console.log("Connected successfully");</script>';
+    }
+
+    if ($conn->query($requestToSQL) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $requestToSQL . "<br>" . $conn->error;
+    }
+    $conn->close();
+    return ;
+}
+
+/** INSERIMENTO CORSO */
+function insert_Corso($corso) {
+    $requestToSQL = 'INSERT INTO Courses (idCorso,idDocente,durataCorso,programmaCorso,ulterioriInfo) VALUES ("'
+        . $corso->idCorso . '","'
+        . $corso->idDocente . '","'
+        . $corso->durataCorso . '","'
+        . $corso->programma . '","'
+        . $corso->ulterioriInfo . '");'
+    ;
     // Create connection
     $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
     // Check connection

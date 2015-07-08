@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.11
+-- version 4.4.6.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Lug 07, 2015 alle 23:12
+-- Creato il: Lug 09, 2015 alle 00:04
 -- Versione del server: 5.6.24
 -- Versione PHP: 5.3.29
 
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `DB_Sistema`
@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS `Courses` (
   `ChiaveInterna` bigint(20) NOT NULL COMMENT 'Chiave di indicizzazione del database',
   `idCorso` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Indice del corso',
   `idDocente` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Indice del docente del corso',
-  `DurataCorso` text COLLATE utf8_unicode_ci,
-  `ProgrammaCorso` text COLLATE utf8_unicode_ci,
-  `UlterioriInfo` text COLLATE utf8_unicode_ci COMMENT 'Qualsiasi altra informazione sul corso'
+  `durataCorso` text COLLATE utf8_unicode_ci,
+  `programmaCorso` text COLLATE utf8_unicode_ci,
+  `ulterioriInfo` text COLLATE utf8_unicode_ci COMMENT 'Qualsiasi altra informazione sul corso'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabella dei corsi';
 
 -- --------------------------------------------------------
@@ -44,17 +44,24 @@ CREATE TABLE IF NOT EXISTS `Courses` (
 CREATE TABLE IF NOT EXISTS `Documents` (
   `ChiaveInterna` bigint(105) NOT NULL DEFAULT '0' COMMENT 'Chiave di indicizzazione interna',
   `idDocumento` text COLLATE utf8_unicode_ci NOT NULL,
-  `Titolo` text COLLATE utf8_unicode_ci COMMENT 'Titolo del documento',
+  `titolo` text COLLATE utf8_unicode_ci COMMENT 'Titolo del documento',
   `idUtente` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Indice Utente',
-  `LuogoRilascio` text COLLATE utf8_unicode_ci COMMENT 'Luogo rilascio del documento',
-  `DataRilascio` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Data di rilascio del documento',
+  `luogoRilascio` text COLLATE utf8_unicode_ci COMMENT 'Luogo rilascio del documento',
+  `dataRilascio` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Data di rilascio del documento',
   `imgLocation` text COLLATE utf8_unicode_ci COMMENT 'il PATH del file .png/.pdf del certificato',
   `isCertificato` tinyint(1) DEFAULT NULL COMMENT 'bool di controllo del tipo del documento',
   `isAttestato` tinyint(1) DEFAULT NULL COMMENT 'bool di controllo del tipo del documento',
   `idCorso` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Chiave indice corso fatto dal utente',
-  `RisultatoAttestato` text COLLATE utf8_unicode_ci COMMENT 'Risultato conseguito nel attestato',
-  `Descrizione` text COLLATE utf8_unicode_ci COMMENT 'Informazioni aggiuntivi'
+  `risultatoAttestato` text COLLATE utf8_unicode_ci COMMENT 'Risultato conseguito nel attestato',
+  `descrizione` text COLLATE utf8_unicode_ci COMMENT 'Informazioni aggiuntivi'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabella dei documenti';
+
+--
+-- Dump dei dati per la tabella `Documents`
+--
+
+INSERT INTO `Documents` (`ChiaveInterna`, `idDocumento`, `titolo`, `idUtente`, `luogoRilascio`, `dataRilascio`, `imgLocation`, `isCertificato`, `isAttestato`, `idCorso`, `risultatoAttestato`, `descrizione`) VALUES
+(0, '3SSIJfHFwSgi3vT5oktZ94jupWgyMG', 'Questo Ã¨ il titolo', '0qiPoUmD3YWzOABn3ftfzT8VK1FBqz', 'Pordenone', '2015-07-08 23:21:49', 'http://lbtest.altervista.org/Immagine.png', 0, 1, '', 'I''M THE WINNER', 'Questa Ã¨ descrizione');
 
 -- --------------------------------------------------------
 
@@ -168,6 +175,13 @@ CREATE TABLE IF NOT EXISTS `pma__recent` (
   `username` varchar(64) COLLATE utf8_bin NOT NULL,
   `tables` text COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+
+--
+-- Dump dei dati per la tabella `pma__recent`
+--
+
+INSERT INTO `pma__recent` (`username`, `tables`) VALUES
+('root', '[{"db":"DB_Sistema","table":"Documents"},{"db":"DB_Sistema","table":"Users"},{"db":"DB_Sistema","table":"Courses"},{"db":"DB_Sistema","table":"pma__history"}]');
 
 -- --------------------------------------------------------
 
@@ -310,16 +324,14 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `idUtente` varchar(30) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Indice pubblico del utente, chiave per le ricerche',
   `nome` text COLLATE utf8_unicode_ci COMMENT 'Nome del Utente',
   `cognome` text COLLATE utf8_unicode_ci COMMENT 'Cognome del Utente'
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabella Degli Utenti';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Tabella Degli Utenti';
 
 --
 -- Dump dei dati per la tabella `Users`
 --
 
 INSERT INTO `Users` (`idUtenteInterno`, `idUtente`, `nome`, `cognome`) VALUES
-(1, 'XIG1C5Z10zzL4M7BiOSmEgyoAcnw5g', '38CvO2', '8wlA8r'),
-(2, 'zPcvTMr46TmDEga5vuzJ9ENqxlAx8G', '8SVf9N', 'n7S9rU'),
-(3, '1gBHO0O5XHzbGcOyHQ1idua2YsJPcB', 'Eizgpv', 'liZ4d3');
+(1, '0qiPoUmD3YWzOABn3ftfzT8VK1FBqz', 'G1V2fo', '6mZqi2');
 
 --
 -- Indici per le tabelle scaricate
@@ -486,7 +498,7 @@ ALTER TABLE `pma__savedsearches`
 -- AUTO_INCREMENT per la tabella `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `idUtenteInterno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Chiave primaria interna - indice degli utenti nel database',AUTO_INCREMENT=36;
+  MODIFY `idUtenteInterno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Chiave primaria interna - indice degli utenti nel database',AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

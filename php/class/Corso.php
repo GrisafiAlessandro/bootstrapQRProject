@@ -5,5 +5,5 @@ class Corso {
 	public $idDocente = null;
 	public $durataCorso = null;
 	public $programma = null;
-	public $Ulterioriinfo = null;
+	public $ulterioriInfo = null;
 }

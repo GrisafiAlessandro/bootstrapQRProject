@@ -1,7 +1,8 @@
 <?php
 
 function Safe_Input($data) {
-    $data = trim($data);
+    //echo $data . "\n ";
+   // $data = trim($data," ");
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
@@ -16,8 +17,12 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
         $idDocumento = Safe_Input($idDocumento);
 
         if(30 == strlen($idDocumento) && preg_match("/^[a-zA-Z0-9]+$/",$idDocumento) )	{
-            include_once "php/request_support.php";
-            $GLOBALS['risposta'] = '$getDocumento($idDocumento)non riceve un cazzo';
+            include "php/request_support.php";
+            $risposta = getDocumento($idDocumento);
+            if($risposta == null)
+                $GLOBALS['risposta'] = 'getDocumento($idDocumento)non riceve un niente';
+            else
+                $GLOBALS['risposta'] = $risposta;
         }
         else {
             echo 'proprio non voglio';
@@ -83,7 +88,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
             </div>
             <div class="col-md-4">
                 <section id="sectionImgDocumento" >
-                    <?php echo '$getImage($idDocumento)'; ?>
+                    <?php echo getImage($idDocumento); ?>
                 </section>
             </div>
          </div>
