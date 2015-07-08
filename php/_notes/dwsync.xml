@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="Certificate_class.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807303829342082" remote="130807466400000000" Dst="2" />
-<file name="request_support.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807478701472463" remote="130807478400000000" Dst="2" />
-<file name="Corso.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807405502216509" remote="130807466400000000" Dst="2" />
-<file name="Document.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807390260197891" remote="130807466400000000" Dst="2" />
-<file name="script per creazione del database" server="ftp.lbtest.altervista.org/qrproject/" local="130807254693474979" remote="130807466400000000" Dst="2" />
-<file name="User.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807254693387088" remote="130807466400000000" Dst="2" />
+<file name="Certificate_class.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807554000000000" remote="130807554000000000" Dst="2" />
+<file name="request_support.php" server="ftp.lbtest.altervista.org/qrproject/" local="130808354112480001" remote="130808356200000000" Dst="2" />
+<file name="Corso.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807842607288408" remote="130808356200000000" Dst="2" />
+<file name="Document.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807554000000000" remote="130807554000000000" Dst="2" />
+<file name="User.php" server="ftp.lbtest.altervista.org/qrproject/" local="130806696000000000" remote="130806696000000000" Dst="2" />
+<file name="dbmysql.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807842608186805" remote="130808356200000000" Dst="2" />
+<file name="upload_data.php" server="ftp.lbtest.altervista.org/qrproject/" local="130807842608450472" remote="130808356200000000" Dst="2" />
+<file name="script per creazione del database" server="ftp.lbtest.altervista.org/qrproject/" local="130806767400000000" remote="130806767400000000" Dst="2" />
 </dwsync>

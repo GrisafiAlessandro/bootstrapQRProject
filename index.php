@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
 
 <!DOCTYPE html>
 <!--[if IE8] -->
-<html>
+<html lang="it">
 <head>
     <meta lang="it">
     <meta charset="utf-8">
@@ -52,19 +52,21 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
         <div id="divRicerca">
             <label id="lblRicerca" >Ricerca</label>
             <input id="searchBar" type="text" name="searchString">
+            <div id="searchResponse" >
+            </div>
         </div>
 
         <!-- le radio button per il tipo di ricerca-->
         <div>
-            <input type="radio" name="type">
+            <input type="radio" name="tipo">
             <label id="lblPerTipo" for="type">Per tipo</label>
-            <input type="radio" name="date">
+            <input type="radio" name="data">
             <label id="lblPerData" for="date">Per data</label>
             <input type="radio" name="title">
-            <label id="lblPerTitolo" for="title">Per titolo</label>
+            <label id="lblPerTitolo" for="titolo">Per titolo</label>
         </div>
 
-        <button id="copyrightButton" title="Copyright" ></button>
+        <button id="copyrightButton" title="Copyright"  ></button>
     </header>
 
     <div class="container-fluid">
@@ -75,12 +77,12 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
             </div>
 
             <div class="col-md-4">
-                <ul id="sectionInfoCertificato">
+                <section id="sectionInfoDocumento">
                     <?php echo $GLOBALS['risposta']; ?>
-                </ul>
+                </section>
             </div>
             <div class="col-md-4">
-                <section id="sectionFotoCertificato" >
+                <section id="sectionImgDocumento" >
                     <?php echo '$getImage($idDocumento)'; ?>
                 </section>
             </div>

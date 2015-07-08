@@ -3,6 +3,7 @@
 <file name="npm.js" server="ftp.lbtest.altervista.org/qrproject/" local="130803198998867877" remote="130803202800000000" Dst="2" />
 <file name="bootstrap.min.js" server="ftp.lbtest.altervista.org/qrproject/" local="130803198998701864" remote="130803202800000000" Dst="2" />
 <file name="bootstrap.js" server="ftp.lbtest.altervista.org/qrproject/" local="130803198998467502" remote="130803202800000000" Dst="2" />
-<file name="jQiuery_server_request.js" server="ftp.lbtest.altervista.org/qrproject/" local="130807248600000000" remote="130805223000000000" Dst="-1" />
 <file name="jQuery_design.js" server="ftp.lbtest.altervista.org/qrproject/" local="130803978170000000" remote="130804099800000000" Dst="2" />
+<file name="jQuery_server_request.js" server="ftp.lbtest.altervista.org/qrproject/" local="130808216493948996" remote="130808356200000000" Dst="2" />
+<file name="jQiuery_server_request.js" server="ftp.lbtest.altervista.org/qrproject/" local="130805223000000000" remote="130805223000000000" Dst="2" />
 </dwsync>

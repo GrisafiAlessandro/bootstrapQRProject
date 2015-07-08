@@ -15,7 +15,11 @@ include "dbmysql.php";
  *  requestType = document/allDocuments/user
  *
  * Database Table Users, Documents, Courses
- *
+ *	typeRequest -> search / document / allDocuments / user
+ 	search -> type & pattern
+	document -> ID_Document
+	allDocuments -> ID_User
+	user -> ID_User	
  */
 
  /* CONTROLLO INPUT */
@@ -28,8 +32,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 		/** Richiesta di ricerca */
 		if($tipoRichiesta === "search")	{
-			if(!empty($_POST['type']) && !empty($_POST['pattern'])){
-
+			if( !empty($_POST['type']) && !empty($_POST['pattern']) && !empty($_POST['ID_User'])) {
+				
+				/** Conversione input da codice eseguibile */
+				$tipoRicerca = safeInput($_POST['type']);
+				$patternRicerca = safeInput($_POST['pattern']);
+				$idUtente = safeInput($_POST['idUser']);
+				
+				ricercaDB_ricercaDocumenti($tipoRicerca,$patternRicerca,$idUtente);
+			}
+			else {
+				sayBadRequest();
 			}
 		}
         /** Richiesta un documento specifico */
@@ -139,6 +152,52 @@ function saybadInput() {
 }
 
 /** Funzioni di ricerca nel database */
+function ricercaDB_ricercaDocumenti($tipoRicerca = "titolo",$patternRicerca = "",$idUtente) {
+	include "Document.php";
+	$rispostaDB = new Document();
+	$requestToSQL = "SELECT titolo";//data, isAttestato 
+	$addField = "";
+ 	
+	if("titolo" != $tipoRicerca) {
+		if("data" == $tipoRicerca) {
+			$requestToSQL .= ",data";
+		}		
+		else if("tipo" == $tipoRicerca) {
+			$pattern = "/^" . $patternRicerca->srttolower() . "*$/";
+		
+			if(preg_match(pattern,"attestato corso")) {
+				$addField = " AND isAttestato=true";
+				
+			}
+			else if(preg_match(pattern,"certificato corso")){
+				$addField = " AND isCertificato=true";
+			}
+		}
+	}	
+	$requestToSQL .= " FROM Documents WHERE idUtente=" . $idUtente . $addField; 
+	
+	// Create connection
+    $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);
+    // Check connection
+    if ($conn->connect_error) {
+        die("<script>console.log('Connection Failed : ". $conn->connect_error . "');</script>");
+    }
+    else {
+        echo "<script>console.log('Connected successfully');</script>";
+        $result = $conn->query($requestToSQL);
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $rispostaDB->idDocumento = $row['idDocumento'];
+                $rispostaDB->titolo = $row['titolo'];
+                $rispostaDB->isCertificato = $row['isCertificato'];
+                $rispostaDB->isAttestato = $row['isAttestato'];
+            }
+        }
+    }
+    $conn->close();
+	return $rispostaDB;	
+}
+
 function ricercaDB_documento($idDocumento) {
     include_once "Document.php";
     $rispostaCostruita = new Document();
@@ -281,8 +340,9 @@ function risposta_corso($corso) {
 	return $risposta;
 }
 
+/** DOCUMENTO */
 function risposta_infoDocumento($documento) {
-	$risposta =  "<div><ul style='list-style-type:none'><li>"
+	$risposta =  '<div><ul style="list-style-type:none;"><li>'
 		. $documento->titolo . '</li><li><ul class="identita" style="display:inline;"><li class="nome">'
 		. $documento->nome . '</li><li class="nome">'
 		. $documento->cognome . '</li></ul></li><li>'
@@ -304,7 +364,7 @@ function risposta_infoDocumento($documento) {
 		$risposta .= "</ul></div>";
 	return $risposta;
 }
-
+ /** ELENCO DOCUMENTI */
 function risposta_elencoDocumenti($vettDocumenti) {
 	$risposta = '<div id="documenti"><ul name="'
 		. $vettDocumenti[0]->idUtente .'">'
@@ -322,7 +382,7 @@ function risposta_elencoDocumenti($vettDocumenti) {
 }
 
 /** DOCENTE*/
-function risposta_Docente($utente,$vettDocumenti) {
+function risposta_docente($utente,$vettDocumenti) {
 	$risposta = '<div><ul class="identita"><li class="nome">'
 		. $utente->nome .'</li><li class="nome">'
 		. $utente->cognome . '</li></ul></div>'
@@ -331,9 +391,18 @@ function risposta_Docente($utente,$vettDocumenti) {
 	return $risposta;
 }
 
+/** IMMAGINE/PDF DOCUMENTO */
 function risposta_immagine($documento) {
     $risposta = '<img alt="'
         . $documento->titolo . '" id="imgDocumento" src="'
         . $documento->imgLocation . '">';
     return $risposta;
+}
+
+/** ELEMENTO NON TROVATO NEL DATABASE */
+function risposta_notFound() {
+}
+
+/** RICHIESTA IN INPUT ERRATA */
+function badInput() {
 }

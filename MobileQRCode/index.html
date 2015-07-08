@@ -18,13 +18,7 @@
  		<div class="container" id="container">
     		<div class="row" id="row">
   				<div id="menuLat" name="menuLat" class="menuLat">
-                	<div id="arrowMenu" class="arrowMenu">
-            			<img src="arrowright.png">
-    					<img src="arrowright.png">
-    					<img src="arrowright.png">
-    					<img src="arrowright.png">
-                    </div>
-                    <div id="buttonMenu" class="buttonMenu">
+                	<div id="buttonMenu" class="buttonMenu">
                         <button id="buttonInfoM" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-a"></button>
                			<button id="buttonBars" class="ui-btn ui-corner-all ui-icon-bars ui-btn-icon-notext ui-btn-a"></button>
          				<button id="buttonSearch" class="ui-btn ui-corner-all ui-icon-search ui-btn-icon-notext ui-btn-a"></button>
@@ -33,36 +27,71 @@
                 </div>  
             	<div id="imgDoc" name="imgDoc" class="col-sm-12">
             		<img src="attestatoProva.jpg" id="img">
-                	<a href="#" class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext ui-btn-b" id="buttonInfo" class="buttonIfo"></a>  			
+                	<button class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext" id="buttonInfo"></button>  			
            		</div>
+               	<div id="info" class="info">
+                	<ul style="list-style-type:none;">
+                    	<li><h1>Titolo attestato </h1></li>
+                        <li><span>Nome</span></li>
+                        <li><span>Cognome</span></li>
+                        <li><p>Risultato attestato</p></li>
+                        <li><p>Luogo di rilascio</p></li>
+                        <li><p>Data di rilascio</p></li>
+                        <li><p>Periodo/durata</p></li>
+                        <li><a href="#">Docente del corso</a></li>
+                        <li><p>Descrizione</p></li>
+                    </ul>
+                </div>
+                
       		</div>
       	</div>
 	 	<script>
        			$(function(){
-    				$( "div#menuLat" ).swiperight( function ( ){
+    				$( "div#imgDoc" ).swiperight( function ( ){
                			$( "div#menuLat" ).addClass( "swiperight" );
-                     	$( "div#arrowMenu" ).addClass( "swiperightArrow" );
                         $( "div#buttonMenu" ).addClass( "swiperightButton" );
                         window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swipeleft");},2);
-                        window.setTimeout(function(){ $( "div#arrowMenu" ).removeClass("swipeleftArrow");},2);
                         window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swipeleftButton");},2);
                     })
                     });
                   
              	//Swipe left menu
             	$(function(){
-    				$( "div#menuLat" ).swipeleft( function ( ){
+    				$( "div#row div").swipeleft( function ( ){
                     	
                         $( "div#menuLat" ).addClass( "swipeleft" );
-               			$( "div#arrowMenu" ).addClass( "swipeleftArrow" );
-                        $( "div#buttonMenu" ).addClass( "swipeleftButton" );
+               			$( "div#buttonMenu" ).addClass( "swipeleftButton" );
                         window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swiperight");},2);
-                        window.setTimeout(function(){ $( "div#arrowMenu" ).removeClass("swiperightArrow");},2);
                         window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swiperightButton");},2);
-                     
-
-                    })
+               		})
                     });
+                
+                $(function() { 
+                	var x = 1;
+                	 $( "button#buttonInfo" ).tap( function ( ){
+                    	if(x==1)
+                        {
+                    		$( "div#menuLat" ).addClass( "swiperight" );
+               				$( "div#buttonMenu" ).addClass( "swiperightButton" );
+                            $(function (){
+                            	$("button#buttonInfo").removeClass("ui-icon-info").addClass("ui-icon-home");});
+                        	window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swipeleft");},2);
+                        	window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swipeleftButton");},2);
+                            x=2;
+                        }
+                        else
+                        { 
+                        	$( "div#menuLat" ).addClass( "swipeleft" );
+               				$( "div#buttonMenu" ).addClass( "swipeleftButton" );
+                            $(function (){
+                            	$("button#buttonInfo").removeClass("ui-icon-home").addClass("ui-icon-info");});
+                        	window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swiperight");},2);
+                        	window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swiperightButton");},2);
+               				x=1;
+                        }
+                    })
+               });
+               
         </script>
  	</body>
 </html>
