@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
                 $GLOBALS['risposta'] = $risposta;
         }
         else {
-            echo 'id del documento non soddisfa i parametri';
+            echo 'proprio non voglio';
         }
     }
 }
@@ -40,21 +40,67 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Certification Service</title>
-    
-    <link type="text/css" href="css/stili-custom.css" media="resolution";>
-    <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="js/jQuery_design.js"></script>
     <link type="text/css" href="css/bootstrap.css" media="all">
+    <link type="text/css" href="css/index.css" media="all">
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/jQuery_server_request.js"></script>
+    <script src="js/jQuery_design.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 
 <body>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jQuery_server_request.js"></script>
+<script>
+    $(function(){
+        $( "div#imgDoc" ).swiperight( function ( ){
+            $( "div#menuLat" ).addClass( "swiperight" );
+            $( "div#buttonMenu" ).addClass( "swiperightButton" );
+            window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swipeleft");},2);
+            window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swipeleftButton");},2);
+        })
+    });
 
-    <header>
-        <button id="btnAllCertiicate" title="Tutti i certificati" ></button>
+    //Swipe left menu
+    $(function(){
+        $( "div#row div").swipeleft( function ( ){
+
+            $( "div#menuLat" ).addClass( "swipeleft" );
+            $( "div#buttonMenu" ).addClass( "swipeleftButton" );
+            window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swiperight");},2);
+            window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swiperightButton");},2);
+        })
+    });
+
+    $(function() {
+        var x = 1;
+        $( "button#buttonInfo" ).tap( function ( ){
+            if(x==1)
+            {
+                $( "div#menuLat" ).addClass( "swiperight" );
+                $( "div#buttonMenu" ).addClass( "swiperightButton" );
+                $(function (){
+                    $("button#buttonInfo").removeClass("ui-icon-info").addClass("ui-icon-home");});
+                window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swipeleft");},2);
+                window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swipeleftButton");},2);
+                x=2;
+            }
+            else
+            {
+                $( "div#menuLat" ).addClass( "swipeleft" );
+                $( "div#buttonMenu" ).addClass( "swipeleftButton" );
+                $(function (){
+                    $("button#buttonInfo").removeClass("ui-icon-home").addClass("ui-icon-info");});
+                window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swiperight");},2);
+                window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swiperightButton");},2);
+                x=1;
+            }
+        })
+    });
+</script>
+    <div>
+        <button id="btnAllDocumnets" title="Tutti i certificati" ></button>
 
         <!-- Ricerca -->
         <div id="divRicerca">
@@ -75,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
         </div>
 
         <button id="copyrightButton" title="Copyright"  ></button>
-    </header>
+    </div>
 
     <div class="container-fluid">
         <div class="row">

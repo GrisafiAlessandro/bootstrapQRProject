@@ -343,13 +343,14 @@ function risposta_corso($corso) {
 
 /** DOCUMENTO */
 function risposta_infoDocumento($utente,$documento) {
-	$risposta =  '<div><ul style="list-style-type:none;"><li>'
-		. $documento->titolo . '</li><li><ul class="identita" style="display:block;list-style-type:none;"><li class="nome" style="display:inline;">'
+	$risposta =  '<div><ul style="list-style-type:none;"><li><h1>'
+		. $documento->titolo . '</h1></li><li><ul class="identita" style="display:block;list-style-type:none;"><li class="nome" style="display:inline;">'
 		. $utente->nome . '</li><li class="nome" style="display:inline;margin-left:15px;">'
 		. $utente->cognome . '</li></ul></li><li>'
 		. $documento->luogoRilascio . '</li><li>'
-		. date('Y-m-d H:i:s',$documento->dataRilascio) . '</li>'
+		. $documento->dataRilascio . '</li>'
 		;
+    echo $documento->dataRilascio;
 
 		if($documento->isCertificato) {
 			$oggettoCorso = richiestaDB_Corso($documento->idCorso);
@@ -393,7 +394,7 @@ function risposta_docente($utente,$vettDocumenti) {
 /** IMMAGINE/PDF DOCUMENTO */
 function risposta_immagine($documento) {
     $risposta = '<img alt="'
-        . $documento->titolo . '" id="imgDocumento" src="'
+        . $documento->titolo . '" id="imgDoc" src="'
         . $documento->imgLocation . '">';
     return $risposta;
 }
