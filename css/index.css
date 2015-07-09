@@ -1,60 +1,40 @@
-div.menuLat {
-    background-color: #0d47a1;
-    position:relative;
-    width: 0%;
-    animation-timing-function: linear;
+/* CSS GENERALI INIZIO */
+* {
+    box-sizing: border-box;
+}
+.identita {
+    display:block;
+    list-style-type:none;
 }
 
-#buttonMenu {
+.nome {
+    display: inline;
+}
+
+.surpress {
+    height: 0%;
+    width: 0%;
+}
+
+nav {
+    background-color: #0d47a1;
+    position:relative;
+}
+
+/* CSS GENERALI FINE */
+#btnMenu {
     opacity: 0.0;
 }
 
-#buttonInfoM {
-    position: absolute;
-    top: 2%;
-    left: 16%;
-    width: 48px;
-    height: 48px;
-}
-
-#buttonBars{
-    position: absolute;
-    top: 15%;
-    left: 16%;
-    width: 48px;
-    height: 48px;
-}
-
-#buttonSearch {
-    position: absolute;
-    top: 28%;
-    left: 16%;
-    width: 48px;
-    height: 48px;
-}
-
-#buttonCopy{
-    position: absolute;
-    bottom: 3%;
-    left: 16%;
-    width: 48px;
-    height: 48px;
-}
-
-#imgDoc, #menuLat {
+#sectionImgDoc, nav {
     padding-left: 0px;
     margin-left: 0px;
     padding-right: 0px;
     margin-right: 0px;
-    display: table-cell;
+    z-index: 6;
 }
 
-#img {
-    width: 100%;
-    height: 100vh;
-}
-
-#buttonInfo{
+#btnInfo{
     position: absolute;
     bottom: 3%;
     right: 5%;
@@ -66,96 +46,7 @@ div.menuLat {
     z-index: 10;
 }
 
-#info {
-    position: absolute;
-    top: 0px;
-    left: 70px;
-    z-index: 5;
-    background-color: #bbdefb;
-    height: 100vh;
-    width: auto;
-
-
+div.info.mostraInfo {
+    position: relative;
+    z-index: 7 !important;
 }
-
-div.menuLat.swiperight {
-    animation-name: swipeRightMenu;
-    animation-duration: 0.2s;
-    width: 20%;
-    background-color: #2196f3;
-}
-
-div.menuLat.swipeleft {
-
-    animation-name: swipeLeftMenu;
-    animation-duration: 0.2s;
-    width: 0%;
-    background-color: #0d47a1;
-}
-
-div.buttonMenu.swiperightButton {
-    animation-name: swipeRightButton;
-    animation-duration: 0.2s;
-    opacity: 1.0 !important;
-}
-
-div.buttonMenu.swipeleftButton {
-    animation-name: swipeLeftButton;
-    animation-duration: 0.2s;
-    opacity: 0.0 !important;
-}
-
-@keyframes swipeRightMenu {
-    0%   {background-color:#0d47a1; width: 0%;}
-
-    10%   {background-color:#0d47a1; width: 2%;}
-    20%  {background-color:#0d47a1; width: 4%;}
-
-    30%  {background-color:#1565c0; width: 6%;}
-    40%  {background-color:#1565c0; width: 8%;}
-
-    50%  {background-color:#1976d2; width: 10%;}
-    60%	 {background-color:#1976d2; width: 12%;}
-    70%  {background-color:#1976d2; width: 14%;}
-
-    80% {background-color:#1e88e5; width: 16%;}
-    90%	 {background-color:#1e88e5; width: 18%;}
-
-    100% {background-color:#2196f3; width: 20%;}
-}
-
-@keyframes swipeLeftMenu {
-    0%   {background-color:#2196f3; width: 20%;}
-
-    10%   {background-color:#2196f3; width: 18%;}
-    20%  {background-color:#2196f3; width: 16%;}
-
-    30%  {background-color:#1e88e5; width: 14%;}
-    40%  {background-color:#1e88e5; width: 12%;}
-
-    50%  {background-color:#1976d2; width: 10%;}
-    60%	 {background-color:#1976d2; width: 8%;}
-    70%  {background-color:#1976d2; width: 6%;}
-
-    80% {background-color:#1565c0; width: 4%;}
-    90%	 {background-color:#1565c0; width: 2%;}
-
-    100% {background-color:#0d47a1; width: 0%;}
-}
-
-@keyframes swipeRightButton {
-    0%   {opacity: 0.2;}
-    25%  {opacity: 0.4;}
-    50%  {opacity: 0.6;}
-    75%  {opacity: 0.8;}
-    100% {opacity: 1.0;}
-}
-
-@keyframes swipeLeftButton {
-    0%   {opacity: 0.8;}
-    25%  {opacity: 0.6;}
-    50%  {opacity: 0.4;}
-    75%  {opacity: 0.2;}
-    100% {opacity: 0.0;}
-}
-

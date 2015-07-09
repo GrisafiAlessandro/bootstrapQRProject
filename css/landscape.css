@@ -1,0 +1,16 @@
+img#imgDoc {
+    width: 50vw;
+    height: 80vh;
+}
+
+#btnInfo{
+    position: absolute;
+    bottom: 3%;
+    right: 5%;
+    height: 60px ;
+    width: 60px ;
+    border-radius: 60px ;
+    border: 0px;
+    background-color: #ff4081;
+    z-index: 10;
+}

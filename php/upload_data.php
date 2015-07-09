@@ -38,15 +38,15 @@ function crea_documento() {
     $documento = new Document();
     $documento->idDocumento = generateRandomString(30);
     $documento->idUtente = $utente->idUtente;
-    $documento->titolo = htmlspecialchars("Questo è il titolo");
+    $documento->titolo = htmlspecialchars("Questo e' il titolo");
     $documento->luogoRilascio = "Pordenone";
     $documento->dataRilascio = date("Y-m-d H:i:s");
-    $documento->imgLocation = "http://lbtest.altervista.org/immagine.png";
+    $documento->imgLocation = "MobileQRCode/attestatoProva.jpg";
     $documento->isCertificato = false; // true; //
     $documento->isAttestato = true; // false; //
     $documento->idCorso = null; // $corso->idCorso; //
     $documento->risultatoAttestato = "I'M THE WINNER";   // null; //
-    $documento->descrizione = htmlspecialchars("Questa è descrizione"); // null; //
+    $documento->descrizione = htmlspecialchars("Questa e' la descrizione"); // null; //
     return $documento;
 }
 

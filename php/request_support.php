@@ -39,10 +39,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				$patternRicerca = safeInput($_POST['pattern']);
 				$idUtente = safeInput($_POST['idUser']);
 
-				ricercaDB_ricercaDocumenti($tipoRicerca,$patternRicerca,$idUtente);
+				$risposta = ricercaDB_ricercaDocumenti($tipoRicerca,$patternRicerca,$idUtente);
 			}
 			else {
-				sayBadRequest();
+				sayBadInput();
 			}
 		}
         /** Richiesta un documento specifico */
@@ -87,7 +87,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 			}
 		}
 		else {
-			echo saybadInput();
+			echo sayBadInput();
 		}
 	}
 }
@@ -154,7 +154,7 @@ function sayBadInput() {
 
 /** Funzioni di ricerca nel database */
 function ricercaDB_ricercaDocumenti($tipoRicerca = "titolo",$patternRicerca = "",$idUtente) {
-	include "Document.php";
+	include_once "class/Document.php";
 	$rispostaDB = new Document();
 	$requestToSQL = "SELECT titolo";//data, isAttestato
 	$addField = "";
@@ -164,13 +164,13 @@ function ricercaDB_ricercaDocumenti($tipoRicerca = "titolo",$patternRicerca = ""
 			$requestToSQL .= ",data";
 		}
 		else if("tipo" == $tipoRicerca) {
-			$pattern = "/^" . $patternRicerca->srttolower() . "*$/";
+			$pattern = "/^" . strtolower($patternRicerca) . "*$/";
 
-			if(preg_match(pattern,"attestato corso")) {
+			if(preg_match($pattern,"attestato corso")) {
 				$addField = " AND isAttestato='true'";
 
 			}
-			else if(preg_match(pattern,"certificato corso")){
+			else if(preg_match($pattern,"certificato corso")){
 				$addField = " AND isCertificato='true'";
 			}
 		}
@@ -333,34 +333,34 @@ function risposta_corso($corso) {
 
 	$risposta = '<li><ul id="utente_identitaDocente" class="identita"><li class="nome">'
 		. $docente->nome . '</li><li class="nome">'
-		. $docente->cognome . '</li></ul><li>'
-		. $corso->durataCorso . '</li><li>'
-		. $corso->programma . '</li><li>'
-		. $corso->infoUlteriori . '</li>'
+		. $docente->cognome . '</li></ul><li><article>'
+		. $corso->durataCorso . '</article></li><li><article>'
+		. $corso->programma . '</article></li><li><article>'
+		. $corso->infoUlteriori . '</article></li>'
 		;
 	return $risposta;
 }
 
 /** DOCUMENTO */
 function risposta_infoDocumento($utente,$documento) {
-	$risposta =  '<div><ul style="list-style-type:none;"><li><h1>'
-		. $documento->titolo . '</h1></li><li><ul class="identita" style="display:block;list-style-type:none;"><li class="nome" style="display:inline;">'
-		. $utente->nome . '</li><li class="nome" style="display:inline;margin-left:15px;">'
-		. $utente->cognome . '</li></ul></li><li>'
-		. $documento->luogoRilascio . '</li><li>'
-		. $documento->dataRilascio . '</li>'
+	$risposta =  '<div><ul style="list-style-type:none;" data-idDocument=""><li><article><h1>'
+		. $documento->titolo . '</h1></article></li><li><ul class="identita" data-idUser="'
+        . $documento->user . '" ><li class="nome""><article>'
+		. $utente->nome . '</article></li><li class="nome" ><article>'
+		. $utente->cognome . '</article></li></ul></li><li><article>'
+		. $documento->luogoRilascio . '</article></li><li><article>'
+		. $documento->dataRilascio . '</article></li>'
 		;
-    echo $documento->dataRilascio;
 
 		if($documento->isCertificato) {
 			$oggettoCorso = richiestaDB_Corso($documento->idCorso);
 			$risposta .= risposta_corso($oggettoCorso);
 		}
 		else if($documento->isAttestato) {
-			$risposta .= "<li>" . $documento->risultatoAttestato . "</li>";
+			$risposta .= "<li><article>" . $documento->risultatoAttestato . "</article></li>";
 
 			if( null != $documento->descrizione ) {
-				$risposta .= "<li>" . $documento->descrizione . "</li>"	;
+				$risposta .= "<li><article>" . $documento->descrizione . "</article></li>"	;
 			}
 		}
 		$risposta .= "</ul></div>";
@@ -368,7 +368,7 @@ function risposta_infoDocumento($utente,$documento) {
 }
  /** ELENCO DOCUMENTI */
 function risposta_elencoDocumenti($vettDocumenti) {
-	$risposta = '<div id="documenti"><ul name="'
+	$risposta = '<div id="documenti"><ul data-idDocument="'
 		. $vettDocumenti[0]->idUtente .'">'
 		;
 
@@ -406,7 +406,7 @@ function risposta_notFound() {
 }
 
 /** RICHIESTA IN INPUT ERRATA */
-function badInput() {
+function risposta_badInput() {
     $risposta = '<script>alert("Errore! Richiesta al server è formulata male");</script>';
     return $risposta;
 }
