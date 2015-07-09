@@ -167,15 +167,15 @@ function ricercaDB_ricercaDocumenti($tipoRicerca = "titolo",$patternRicerca = ""
 			$pattern = "/^" . $patternRicerca->srttolower() . "*$/";
 
 			if(preg_match(pattern,"attestato corso")) {
-				$addField = " AND isAttestato=true";
+				$addField = " AND isAttestato='true'";
 
 			}
 			else if(preg_match(pattern,"certificato corso")){
-				$addField = " AND isCertificato=true";
+				$addField = " AND isCertificato='true'";
 			}
 		}
 	}
-	$requestToSQL .= " FROM Documents WHERE idUtente=" . $idUtente . $addField;
+	$requestToSQL .= " FROM Documents WHERE idUtente='" . $idUtente . "'" . $addField;
 
 	// Create connection
     $conn = new mysqli($GLOBALS['$servername'], $GLOBALS['$username'], $GLOBALS['$password'], $GLOBALS['dbname']);

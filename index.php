@@ -1,7 +1,6 @@
 <?php
 
 function Safe_Input($data) {
-    //echo $data . "\n ";
    // $data = trim($data," ");
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -25,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
                 $GLOBALS['risposta'] = $risposta;
         }
         else {
-            echo 'proprio non voglio';
+            echo 'id del documento non soddisfa i parametri';
         }
     }
 }
@@ -41,14 +40,18 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Certification Service</title>
+    
+    <link type="text/css" href="css/stili-custom.css" media="resolution";>
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/jQuery_design.js"></script>
     <link type="text/css" href="css/bootstrap.css" media="all">
 </head>
 
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jQuery_server_request.js"></script>
-<script src="js/jQuery_design.js"></script>
 
     <header>
         <button id="btnAllCertiicate" title="Tutti i certificati" ></button>
