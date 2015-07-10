@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
                 $GLOBALS['risposta'] = $risposta;
         }
         else {
-            echo 'proprio non voglio';
+            $GLOBALS['risposta'] = 'input sbagliato';
         }
     }
 }
@@ -39,10 +39,10 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
     <title>Certification Service</title>
     <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" media="all" href="css/index.css">
-    <link rel="stylesheet" type="text/css" media="(max-width: 450px)" href="css/small.css">
+    <link rel="stylesheet" type="text/css" media="device and (max-width: 450px)" href="css/small.css">
     <link rel="stylesheet" type="text/css" media="(min-width: 451px)" href="css/medium.css">
     <link rel="stylesheet" type="text/css" media="(min-width: 900px)" href="css/large.css">
-    <link rel="stylesheet" type="text/css" media="(min-width: 1350px)" href="css/ultra-large.css">
+    <link rel="stylesheet" type="text/css" media="(min-width: 1400px)" href="css/ultra-large.css">
     <link rel="stylesheet" type="text/css" media="(max-width: 900) and (orientation: portrait)" href="css/portrait.css">
     <link rel="stylesheet" type="text/css" media="(orientation: landscape)" href="css/landscape.css">
     <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">

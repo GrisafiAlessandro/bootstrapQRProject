@@ -6,14 +6,14 @@
  * Time: 20:23
  */
 
-/**
+//**
 $GLOBALS['$servername'] = "localhost";
-$GLOBALS['$username'] = "lbTest";
+$GLOBALS['$username'] = "lbtest";
 $GLOBALS['$password'] = "alphabetagamma";
-$GLOBALS['dbname'] = "DB_Sistema";
+$GLOBALS['dbname'] = "my_lbtest";
 //*/
 
-//**
+/**
 $GLOBALS['$servername'] = "localhost";
 $GLOBALS['$username'] = "root";
 $GLOBALS['$password'] = "mysql";
