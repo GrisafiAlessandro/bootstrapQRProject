@@ -44,7 +44,12 @@ button#btnCopyright {
     right: 1%;
 }
 .col-md-6 {
-    padding-left: 020px;
+    padding-left: 20px;
     padding-top: 0px;
     padding-right: 20px;
 }
+
+body {
+
+}
+
