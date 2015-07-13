@@ -11,8 +11,8 @@ $(function(){
 $(function(){
     $( "div#row div").swipeleft( function ( ){
 
-        $( "div#menuLat" ).addClass( "swipeleft" );
-        $( "div#buttonMenu" ).addClass( "swipeleftButton" );
+        $( "nav" ).addClass( "swipeleft" );
+        $( "div#btnMenu" ).addClass( "swipeleftButton" );
         window.setTimeout(function(){ $( "nav" ).removeClass("swiperight");},2);
         window.setTimeout(function(){ $( "div#btnMenu" ).removeClass("swiperightButton");},2);
     })

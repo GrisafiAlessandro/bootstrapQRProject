@@ -331,7 +331,7 @@ function ricercaDB_corso($idCorso)
 function risposta_corso($corso) {
 	$docente = ricercaDB_Utente($corso->idDocente);
 
-	$risposta = '<li><ul id="utente_identitaDocente" class="identita"><li class="nome">'
+	$risposta = '<li><ul id="teacher" class="identita"><li class="nome">'
 		. $docente->nome . '</li><li class="nome">'
 		. $docente->cognome . '</li></ul><li><article>'
 		. $corso->durataCorso . '</article></li><li><article>'

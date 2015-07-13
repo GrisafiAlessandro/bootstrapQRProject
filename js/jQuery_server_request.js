@@ -112,7 +112,7 @@ function getDocumentListFromServer(idUser) {
 }
 
 /* REQUEST COMPLETE USER + DOCUMENT LIST */
-function getUserFromServer(idUser) {
+function getTeacherFromServer(idUser) {
 	var request_user = $.ajax({
 		datatype: "html",
 		data: { "typeRequest" : "user", "ID_User" : idUser}
