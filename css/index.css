@@ -2,6 +2,20 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+
+}
+
+header {
+    background-color: #2196f3;
+}
+
+nav {
+    position:relative;
+}
+
+
 .identita {
     display:block;
     list-style-type:none;
@@ -16,17 +30,13 @@
     width: 0%;
 }
 
-nav {
-    background-color: #2196f3;
-    position:relative;
-}
 
 /* CSS GENERALI FINE */
 #btnMenu {
     opacity: 0.0;
 }
 
-#sectionImgDoc, nav {
+#sectionImgDoc {
     padding-left: 0px;
     margin-left: 0px;
     padding-right: 0px;

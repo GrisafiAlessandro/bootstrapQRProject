@@ -3,7 +3,7 @@ $(function(){
 	$("btn#infoAllD").click();
 	$("btn#Search").click();
 	$("btn#copyright").click(draw_copyright());
-	$("ul.docList > li").click(select(this));
+	$("ul.docList > li").click(selectDocument(this));
 	$("ul#teacher").click(selectTeacher(this));
 
 	$();
@@ -13,7 +13,7 @@ $(function(){
 
 // Select the document whose informations User want to see
 function selectDocument(element) {
-	
+
 	var idDocument = element.attr("data-idDocument");
 	getDocumentFromServer(idDocument);
 }
@@ -24,3 +24,6 @@ function selectTeacher(element) {
 	getdocenteFromServer
 }
 
+function draw_copyright() {
+
+}

@@ -5,11 +5,11 @@
   		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
          <meta name="theme-color" content="#2196f3">
   		<title>Certification service</title>
-
+ 		
         <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
  		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   		<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
+        
         <link href="http://lbtest.altervista.org/qrproject/css/bootstrap.css" rel="stylesheet" media="screen">
         <link href="http://lbtest.altervista.org/qrproject/css/stili-custom.css" rel="stylesheet" media="screen">
   		<link rel="stylesheet" href="css/index.css" media="all">
@@ -24,16 +24,16 @@
          				<button id="buttonSearch" class="ui-btn ui-corner-all ui-icon-search ui-btn-icon-notext ui-btn-a"></button>
                     	<button id="buttonCopy" class="ui-btn ui-corner-all ui-icon-alert ui-btn-icon-notext ui-btn-a"></button>
                     </div>
-                </div>
+                </div>  
             	<div id="imgDoc" name="imgDoc" class="col-sm-12">
             		<img src="attestatoProva.jpg" id="img">
-                	<button class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext" id="buttonInfo"></button>
+                	<button class="ui-btn ui-corner-all ui-icon-info ui-btn-icon-notext" id="buttonInfo"></button>  			
            		</div>
                	<div id="info" class="info">
                 	<ul style="list-style-type:none;">
                     	<li><h1>Titolo attestato </h1></li>
                         <li><span>Nome</span><span>Cognome</span></li>
-
+    
                         <li><p>Risultato attestato</p></li>
                         <li><p>Luogo di rilascio</p></li>
                         <li><p>Data di rilascio</p></li>
@@ -42,6 +42,7 @@
                         <li><p>Descrizione</p></li>
                     </ul>
                 </div>
+                
       		</div>
       	</div>
 	 	<script>
@@ -53,19 +54,19 @@
                         window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swipeleftButton");},2);
                     })
                     });
-
+                  
              	//Swipe left menu
             	$(function(){
     				$( "div#row div").swipeleft( function ( ){
-
+                    	
                         $( "div#menuLat" ).addClass( "swipeleft" );
                			$( "div#buttonMenu" ).addClass( "swipeleftButton" );
                         window.setTimeout(function(){ $( "div#menuLat" ).removeClass("swiperight");},2);
                         window.setTimeout(function(){ $( "div#buttonMenu" ).removeClass("swiperightButton");},2);
                		})
                     });
-
-                $(function() {
+                
+                $(function() { 
                 	var x = 1;
                 	 $( "button#buttonInfo" ).tap( function ( ){
                     	if(x==1)
@@ -81,7 +82,7 @@
                             x=2;
                         }
                         else
-                        {
+                        { 
                         	$( "div#menuLat" ).addClass( "swipeleft" );
                				$( "div#buttonMenu" ).addClass( "swipeleftButton" );
                             $( "div#info" ).addClass( "nascondiInfo" );

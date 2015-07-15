@@ -1,0 +1,33 @@
+@media all {
+
+}
+
+@media screen and (max-width: 450px) {
+
+
+}
+
+/* GENERIC MINIMUM WIDTH 451 PX*/
+@media screen and (min-width: 451px) {
+
+}
+
+/* PORTRAIT MINIMUM WIDTH 451 PX*/
+@media screen and (min-width: 451px) and (orientation: portrait){
+
+}
+
+/* LANDSCAPE MINIMUM WIDTH 451 PX*/
+@media screen and (min-width: 451px) and (orientation: landscape) {
+
+}
+
+
+
+@media screen and (min-width: 900px) {
+
+}
+
+@media screen and (min-width: 1400px) {
+
+}

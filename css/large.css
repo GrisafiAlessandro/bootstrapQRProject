@@ -1,3 +1,107 @@
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+header {
+    position:fixed;
+    height: 100px;
+    width: 100%;
+
+}
+
+nav {
+    margin-top: 0px;
+    margin-left:2%;
+    margin-bottom: 0%;
+    margin-right: 2%;
+    height: 100%;
+    //display: inline;
+
+
+}
+
+nav * {
+    position:relative;
+    display: inline;
+}
+
+button {
+    margin-left: 1%;
+    width: 5%;
+    display: inline;
+}
+
+button#btnInfoD {
+    visibility:hidden;
+}
+
+button#btnAllD {
+    position: fixed;
+    left : 1%;
+    top: 20px;
+    height: 60px;
+    width: 70px;
+    border-radius: 8px;
+    border: none;
+}
+
+button#btnCopyright {
+    position:fixed;
+    top: 20px;
+    right: 1%;
+    height: 60px;
+    width: 70px;
+    border-radius: 8px;
+    border: none;
+}
+
+#btnSearch {
+    visibility: collapse;
+}
+
+img#logo {
+    position:fixed;
+    left: 50%;
+    top: 2px;
+    bottom: 30px;
+    margin: auto;
+    padding-top: 0px;
+    margin-top: 0px;
+    
+    min-width: 197px;
+    min-height: 62px;
+    max-height:100px;
+    max-width: 580px;
+}
+
+input {
+}
+
+input#searchBar {
+    width: 300px;
+}
+
+svg {
+    height: 36px;
+    width: 36px;
+}
+
+div#searchModule {
+    display: inline-table;
+}
+
+#divSearchbar, #divSearchType {
+    display: table;
+
+}
+
+
+/* SEZIONE SOTTO */
 section#sectionInfoDoc {
     position: relative;
     top: 0px;
@@ -19,37 +123,8 @@ img#imgDoc {
     width: 100%;
 }
 
-nav {
-    height: 10%;
-    width: 100%;
-    display: block;
-}
-
-nav * {
-    display: inline !important;
-
-}
-
-.ui-button {
-    display: inline !important;
-}
-
-img#logo {
-    padding-top: 0px;
-    width: 197px;
-    height: 62px;
-}
-
-button#btnCopyright {
-    right: 1%;
-}
 .col-lg-6 {
     padding-left: 20px;
     padding-top: 0px;
     padding-right: 20px;
 }
-
-body {
-
-}
-
