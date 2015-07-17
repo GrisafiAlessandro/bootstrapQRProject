@@ -5,11 +5,63 @@
  * Date: 07/07/2015
  * Time: 18:30
  */
+ 
+ /* Idea : 
+ unire le richieste in queste API 
+ NOTA! upload concesso solo a pagine lato segretaria
+ 
+ 
+ NOTA! creare un mini framework php manuale
+  suddividere in file pià piccoli i file
+ */
+ 
+ /** TIPI DI VARIABILI E RICHIESTE
+ 	requestType : download / upload
+ 	dataType : user / document / alldocuments / course / pdfDoc /(solo download) qrcode 
+	download - user : userID [30 caratteri]   
+	download - document : documentID [30 caratteri]
+	download - alldocuments : userID [30 caratteri]
+	download - course : courseID [30 caratteri]
+	download - pdfDoc : documentID [30 caratteri]
+	download - qrcode : documentID [30 caratteri]
+	
+	upload - user : new [true/false]  
+		new -> false : userID [30 caratteri], name [50 caratteri], cognome [50 caratteri]
+		new -> true : name [50 caratteri], cognome [50 caratteri]
+	upload - document : new [true/false]
+		new -> false : documentID [30 caratteri] 
+		new -> true :
+	upload - alldocuments :
+	upload - course :
+	upload - pdfDoc : idDocument 
+ **/
 
 include "dbmysql.php";
 include "class/User.php";
 include "class/Document.php";
 include "class/Corso.php";
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') { 
+	$tipoDati = $_POST['dataType'];
+	
+	if(!empty($tipoDati)) {
+		
+		$tipoDati = SafeInput($tipoDati);
+		
+		if(preg_match('/^[a-zA-Z]*$/',$tipoDati)) {
+			
+		}
+		else {
+			response_client_error("Input errato! Variabile datatype contiene caratteri non validi");
+		}
+	}
+	else {
+		response_client_error("Input errato! Variabile dataType è vuota.");
+	}
+	
+}
+
+
 
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -68,6 +120,13 @@ function crea_corso() {
 // insert_corso(crea_corso());
 
 /** FINE DEBUG */
+
+/** RISPOSTE AL CLIENT*/
+function response_client_error($causa_errore) {
+}
+
+
+
 /** INSERIMENTO UTENTE */
 function insert_utente($utente) {
     $requestToSQL = 'INSERT INTO Users (idUtente, nome, cognome) VALUES ("'
