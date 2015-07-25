@@ -5,63 +5,69 @@
  * Date: 07/07/2015
  * Time: 18:30
  */
- 
- /* Idea : 
- unire le richieste in queste API 
- NOTA! upload concesso solo a pagine lato segretaria
- 
- 
+
+ /** Idea :
+ unire le richieste in queste API
+ NOTA! upload concesso solo a pagine lato segretaria = controllo ID utente, login, sessionID ecc
+  *
+
+
  NOTA! creare un mini framework php manuale
   suddividere in file pià piccoli i file
  */
- 
+
  /** TIPI DI VARIABILI E RICHIESTE
  	requestType : download / upload
- 	dataType : user / document / alldocuments / course / pdfDoc /(solo download) qrcode 
-	download - user : userID [30 caratteri]   
+ 	dataType : user / document / course / pdfDoc /(solo download!) qrcode, alldocuments
+	download - user : userID [30 caratteri]
 	download - document : documentID [30 caratteri]
 	download - alldocuments : userID [30 caratteri]
 	download - course : courseID [30 caratteri]
 	download - pdfDoc : documentID [30 caratteri]
 	download - qrcode : documentID [30 caratteri]
-	
-	upload - user : new [true/false]  
+
+	upload - user : new [true/false]
 		new -> false : userID [30 caratteri], name [50 caratteri], cognome [50 caratteri]
 		new -> true : name [50 caratteri], cognome [50 caratteri]
 	upload - document : new [true/false]
-		new -> false : documentID [30 caratteri] 
+		new -> false : documentID [30 caratteri]
 		new -> true :
-	upload - alldocuments :
-	upload - course :
-	upload - pdfDoc : idDocument 
- **/
+                      ^+^ documentID [30 caratteri]
+                      userID [30 caratteri]
+                      title [200 caratteri]
+                      place [80 caratteri]
+                      releaseDate [YYYY:MM:DD]
+                      img
+
+                      isCertificato true/false
+                      isAttestato true/false
+                      isDiploma true/false;
+
+                      courseID [30 caratteri]
+
+                      certifiateResult [175 caratteri]
+                      description [50000 caratteri]
+
+	upload - course : new [true/false]
+         new -> false : documentID [30 caratteri]
+                        courseID [30 caratteri]
+                        userID [30 caratteri]
+                        coursePeriod [500 caratteri]
+                        coursePlan [50000 caratteri]
+                        additionalInfo [50000 caratteri]
+         new -> true :
+                      courseID [30 caratteri]
+                      userID [30 caratteri]
+                      coursePeriod [500 caratteri]
+                      coursePlan [50000 caratteri]
+                      additionalInfo [50000 caratteri]
+	upload - pdfDoc : idDocument
+ */
 
 include "dbmysql.php";
 include "class/User.php";
 include "class/Document.php";
 include "class/Corso.php";
-
-if($_SERVER['REQUEST_METHOD'] == 'POST') { 
-	$tipoDati = $_POST['dataType'];
-	
-	if(!empty($tipoDati)) {
-		
-		$tipoDati = SafeInput($tipoDati);
-		
-		if(preg_match('/^[a-zA-Z]*$/',$tipoDati)) {
-			
-		}
-		else {
-			response_client_error("Input errato! Variabile datatype contiene caratteri non validi");
-		}
-	}
-	else {
-		response_client_error("Input errato! Variabile dataType è vuota.");
-	}
-	
-}
-
-
 
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
