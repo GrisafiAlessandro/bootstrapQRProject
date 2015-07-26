@@ -30,25 +30,30 @@ if( !empty($_POST['type']) && !empty($_POST['pattern']) && !empty($_POST['userID
 /** MAIN - TUTTE LE AZIONI SI SVOLGONO QUI */
 function main($tipoRicerca,$patternRicerca,$idUtente) {
     include_once (root_dir_php. 'class/Document.php');
-    $sqlRequest = build_sql_request($tipoRicerca,$patternRicerca,$idUtente);
 
-    $rispostaDB = ricercaDB_ricercaDocumenti($sqlRequest);
-    $rispostaHTML = build_HTML($rispostaDB);
+    $sqlRequest = build_sql_request($tipoRicerca,$patternRicerca,$idUtente);
+    $rispostaDB = ricercaDB($sqlRequest);
+
+    if (null != $rispostaDB)
+        $rispostaHTML = build_build_HTML_search_resultsHTML($rispostaDB);
+    else {
+        $rispostaHTML = sayNotFound("Ricerca non prodotto risultati");
+    }
     echo  $rispostaHTML;
 }
 
 function build_sql_request($tipoRicerca = "titolo",$patternRicerca,$idUtente) {
-    $requestToSQL = "SELECT titolo";//data, isAttestato
-    $addField = "";
+    $requestToSQL = 'SELECT titolo';//data, isAttestato
+    $addField = '';
 
-    if("titolo" != $tipoRicerca) {
-        if("data" == $tipoRicerca) {
-            $requestToSQL .= ",data";
+    if('titolo' != $tipoRicerca) {
+        if('data' === $tipoRicerca) {
+            $requestToSQL .= ',data';
         }
-        else if("tipo" == $tipoRicerca) {
+        else if("tipo" === $tipoRicerca) {
             $pattern = "/^" . strtolower($patternRicerca) . "*$/";
 
-            if(preg_match($pattern,"attestato corso")) {
+            if(preg_match($pattern,"/attestato corso/")) {
                 $addField = " AND isAttestato='true'";
             }
             else if(preg_match($pattern,"certificato corso")){
@@ -60,6 +65,38 @@ function build_sql_request($tipoRicerca = "titolo",$patternRicerca,$idUtente) {
     return $requestToSQL;
 }
 
-function build_HTML($risposta) {
+/** PRENDO I RISULTATI DEL DATABASE */
+function parse_sql_document($sql_response){
+    $documentsArray[] = array();
+    if(isset($sql_response)) {
+        $document = new Document();
+        $counter = 0;
+        while($row = $sql_response->fetch_assoc()) {
+            $document->idDocumento = $row['idDocumento'];
+            $document->idUtente = $row['idUtente'];
+            $document->titolo = $row['titolo'];
+            $document->luogoRilascio = $row['luogoRilascio'];
+            $document->dataRilascio = $row['dataRilascio'];
+            $document->imgLocation = $row['imgLocation'];
+            $document->isCertificato = $row['isCertificato'];
+            $document->isAttestato = $row['isAttestato'];
+            $document->idCorso = $row['idCorso'];
+            $document->risultatoAttestato = $row['risultatoAttestato'];
+            $document->descrizione = $row['descrizione'];
+            $documentsArray[$counter] = $document;
+            ++$counter;
+        }
+    }
+    return $document;
+}
+
+function build_HTML_search_results($vettDocumenti) {
+    $risposta = '';
+    foreach($vettDocumenti as $documento) {
+        $risposta .= '<li name="'
+            . $documento->idDocumento . '">'
+            . $documento->titolo . '</li>'
+        ;
+    }
     return $risposta;
 }

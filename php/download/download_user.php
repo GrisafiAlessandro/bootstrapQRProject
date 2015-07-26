@@ -6,10 +6,8 @@
  * Time: 17:03
  */
 
-$idUtente = $GLOBALS['userID'];
-
-if(!empty($idUtente)) {
-    $idUtente = safeInput($idUtente);
+if(!empty($GLOBALS['userID'])) {
+    $idUtente = safeInput($GLOBALS['userID']);
 
     //Controllo se id è lungo 10 caratteri ed è composto solo di lettere e numeri
     if(10 == strlen($idUtente) && preg_match("/^[a-zA-Z0-9]+$/",$idUtente)) {

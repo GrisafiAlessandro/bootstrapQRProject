@@ -193,12 +193,12 @@ function risposta_infoDocumento($utente,$documento) {
 }
  /** ELENCO DOCUMENTI */
 function risposta_elencoDocumenti($vettDocumenti) {
-	$risposta = '<div id="documenti"><ul data-idDocument="'
+	$risposta = '<div id="documenti"><ul data-idUtente="'
 		. $vettDocumenti[0]->idUtente .'">'
 		;
 
 	foreach($vettDocumenti as $documento) {
-		$risposta .= '<li name="'
+		$risposta .= '<li data-idDocument="'
 			. $documento->idDocumento . '">'
 			. $documento->titolo . '</li>'
 			;
