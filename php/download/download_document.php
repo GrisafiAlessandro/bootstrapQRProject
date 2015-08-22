@@ -6,7 +6,7 @@
  * Time: 17:04
  */
 
-if(!empty($_POST['documentID'])) {
+if(isset($_POST['documentID'])) {
     /* Protezione input da codice eseguibile */
     $idDocumento = safeInput($_POST['documentID']);
 
@@ -15,9 +15,9 @@ if(!empty($_POST['documentID'])) {
         main_document($idDocumento);
     }
 }
-else if(!empty($_GET['documentID'])) {
+else if(isset($_GET['documentID'])) {
     /* Protezione input da codice eseguibile */
-    $idDocumento = safeInput($_POST['documentID']);
+    $idDocumento = safeInput($_GET['documentID']);
 
     /* Controllo se id è lungo 10 caratteri ed è composto solo di lettere e numeri */
     if(30 == strlen($idDocumento) && preg_match("/^[a-zA-Z0-9]+$/",$idDocumento) )	{
@@ -77,7 +77,7 @@ function parse_sql_document($sql_response){
     $document = null;
     if(isset($sql_response)) {
         $document = new Document();
-        while($row = $sql_response->fetch_assoc()) {
+        while($row = mysql_fetch_assoc($sql_response)) {
             $document->idDocumento = $row['idDocumento'];
             $document->idUtente = $row['idUtente'];
             $document->titolo = $row['titolo'];
@@ -97,8 +97,8 @@ function parse_sql_document($sql_response){
 function parse_sql_user($sql_response){
     $user = null;
     if(isset($sql_response)) {
-        $user = new Corso();
-        while($row = $sql_response->fetch_assoc()) {
+        $user = new User();
+        while($row = mysql_fetch_assoc($sql_response)) {
             $user->nome = $row['nome'];
             $user->cognome = $row['cognome'];
         }
@@ -110,7 +110,7 @@ function parse_sql_course($sql_response){
     $user = null;
     if(isset($sql_response)) {
         $user = new Corso();
-        while ($row = $sql_response->fetch_assoc()) {
+        while ($row = mysql_fetch_assoc($sql_response)) {
             $user->idCorso = $row['idCorso'];
             $user->idDocente = $row['idDocente'];
             $user->durataCorso = $row['durataCorso'];

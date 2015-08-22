@@ -92,7 +92,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
                 <label id="lblPerTitolo" for="titolo">Per titolo</label>
             </div>
         </div>
-        <img id="logo" title="ITST J.F.Kennedy" src="fonts/logo.jpg">
+        <img id="logo" title="ITST J.F.Kennedy" src="imgs/logo.jpg">
         <button id="btnCopyright" title="Copyright" >
             <svg viewBox="0 0 49 49" fill="none" stroke="black">
                 <circle cx="24" cy="24" r="21.24" stroke-width="5.52"/>

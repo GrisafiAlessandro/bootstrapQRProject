@@ -12,11 +12,16 @@ if(!empty($_POST['documentID'])) {
 
     /* Controllo se id è lungo 10 caratteri ed è composto solo di lettere e numeri */
     if(30 == strlen($idDocumento) && preg_match("/^[a-zA-Z0-9]+$/",$idDocumento) )	{
-        main_document($idDocumento);
+        main($idDocumento);
     }
 }
 else {
     sayBadInput("Errore! Il parametro documentID è vuoto!");
+}
+
+/* MAIN - TUTTE LE AZIONI SI SVOLGONO QUI */
+function main($idDocumento){
+
 }
 
 /** RICHIESTA IN SQL PER CERCARE IL DOCUMENTO */
